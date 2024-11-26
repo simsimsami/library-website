@@ -17,9 +17,14 @@
 - test the 2 get routes with postman
 - 2 routes work normally (http://localhost:3000/contrib/'{contrib_id}')
 
+- front end allows the user to see some data.
+- - publishers
+- - users
+- - subjects
+- - books
+
 ## what is happening now
 
-- front end allows the user to see some data. (currently first names)
 - I need to make it so that the user sees books, its just a list of contributors right now.
 
 ----

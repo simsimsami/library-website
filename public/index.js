@@ -4,7 +4,7 @@ async function getContribs() {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`)
+            errorHandle(response);
         }
         const data = await response.json();
         const currentDiv = document.querySelector('#records');
@@ -12,25 +12,12 @@ async function getContribs() {
 
         for (const items in data) {
             // I need id, first name, surname and title.
-            const card = document.createElement('div');
+
+            const card = document.createElement('div'); // call function, make div, class
             card.id = data[items].contributor_id;
-            card.setAttribute('class', 'grid-container')
-
-            const title = document.createElement('div');
-            title.setAttribute("class", "grid-item");
-
-            const firstName = document.createElement('div');
-            firstName.setAttribute('class', 'grid-item');
-
-            const lastName = document.createElement('div');
-            lastName.setAttribute('class', 'grid-item');
-
-            // grid system
-
-
-            title.innerHTML = data[items].contributor_title;
-            firstName.innerHTML = data[items].contributor_first_name;
-            lastName.innerHTML = data[items].contributor_last_name;
+            const title = grid(data[items].contributor_title);
+            const firstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
+            const lastName = grid(data[items].contributor_last_name);
 
             card.append(title, firstName, lastName);
             currentDiv.appendChild(card);
@@ -41,8 +28,15 @@ async function getContribs() {
     }
 }
 
+function grid(data) {
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute("class", "grid-item");
+    gridItem.innerHTML = data;
+    return gridItem;
+}
+
 async function errorHandle(response) {
-    throw new Error(`Response Status`);
+    throw new Error(`Response Status: ${response.status}`);
 }
 
 async function getSubjects() {
@@ -60,10 +54,7 @@ async function getSubjects() {
             const card = document.createElement('div');
             card.id = data[items].subject_id;
 
-            const subTitle = document.createElement('p');
-            subTitle.setAttribute('class', 'subTitle');
-
-            subTitle.innerHTML = data[items].subject_title;
+            const subTitle = grid(data[items].subject_title);
             card.appendChild(subTitle);
             currentDiv.appendChild(card);
         }
@@ -86,29 +77,14 @@ async function getBooks() {
         for (const items in data) {
             const card = document.createElement('div');
             card.id = data[items].book_id;
-            card.setAttribute('class', 'grid-container')
+            card.setAttribute('class', 'grid-container');
 
+            const bookTitle = grid(data[items].book_title);
+            const book_release = grid(data[items].book_release_date);
+            const isbn = grid(data[items].isbn);
+            const pub = "not yet implemented";
 
-            const bookTitle = document.createElement('div');
-            bookTitle.setAttribute('class', 'grid-item');
-
-            const book_release = document.createElement('div');
-            book_release.setAttribute('class', 'grid-item');
-
-            const isbn = document.createElement('div');
-            isbn.setAttribute('class', 'grid-item');
-
-            // dont have publisher names yet
-
-
-
-
-
-            bookTitle.innerHTML = data[items].book_title;
-            book_release.innerHTML = data[items].book_release_date;
-            isbn.innerHTML = data[items].isbn;
-
-            card.append(bookTitle, book_release, isbn);
+            card.append(bookTitle, book_release, isbn, pub);
             currentDiv.appendChild(card);
         }
     } catch (error) {
@@ -131,10 +107,12 @@ async function getPublishs() {
             const card = document.createElement('div');
             card.id = data[items].publisher_id;
 
-            const pubName = document.createElement('p');
-            pubName.setAttribute("class", "pubName");
+            // const pubName = document.createElement('p');
+            // pubName.setAttribute("class", "pubName");
+            // pubName.innerHTML = data[items].publisher_name;
 
-            pubName.innerHTML = data[items].publisher_name;
+
+            const pubName = grid(data[items].publisher_name);
             card.appendChild(pubName);
             currentDiv.appendChild(card);
         }
@@ -145,13 +123,6 @@ async function getPublishs() {
 
 // Want a list of books
 
-async function grid(data) {
-    const currentDiv = document.querySelector('#records');
-    const gridContainer = document.createElement('div');
-    for (const items in data) {
-        const gridItem = documen.createElement('div');
-    }
-}
 
 const contribButton = document.querySelector("#contribs");
 contribButton.addEventListener("click", getContribs)
