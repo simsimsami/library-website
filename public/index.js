@@ -123,17 +123,63 @@ async function getPublishs() {
 
 // Want a list of books
 
+function createGetButtons() {
+    const buttonContainer = document.querySelector('#buttonContainer');
+    buttonContainer.innerHTML = "";
+    const contrib = document.createElement('button');
+    const pub = document.createElement('button');
+    const sub = document.createElement('button');
+    const book = document.createElement('button');
+    contrib.id = "contribs";
+    contrib.innerHTML = "Get Contributors";
+    pub.id = "publishers";
+    pub.innerHTML = "Get Publishers";
+    sub.id = "subject";
+    sub.innerHTML = "Get Subjects";
+    book.id = "books";
+    book.innerHTML = "Get Books";
+    buttonContainer.append(contrib, pub, sub, book);
+}
 
-const contribButton = document.querySelector("#contribs");
-contribButton.addEventListener("click", getContribs)
+function createPostButtons() {
+    const buttonContainer = document.querySelector('#buttonContainer');
+    buttonContainer.innerHTML = "";
+    const contrib = document.createElement('button');
+    const pub = document.createElement('button');
+    const sub = document.createElement('button');
+    const book = document.createElement('button');
+    contrib.id = "contribs";
+    contrib.innerHTML = "Post Contributors";
+    pub.id = "publishers";
+    pub.innerHTML = "Post Publishers";
+    sub.id = "subject";
+    sub.innerHTML = "Post Subjects";
+    book.id = "books";
+    book.innerHTML = "Post Books";
+    buttonContainer.append(contrib, pub, sub, book);
+}
 
-const publishButton = document.querySelector('#publishers');
-publishButton.addEventListener("click", getPublishs)
+function addGlobalEventListener(type, selector, callback) {
+    document.addEventListener(type, e => {
+        if (e.target.matches(selector)) {
+            callback();
+        }
+    })
+}
 
-const subjectButton = document.querySelector('#subject');
-subjectButton.addEventListener('click', getSubjects);
+addGlobalEventListener("click", "#getButtons", createGetButtons)
+addGlobalEventListener("click", "#postButtons", createPostButtons)
 
-const bookButton = document.querySelector('#books');
-bookButton.addEventListener('click', getBooks);
+
+addGlobalEventListener("click", "#contribs", getContribs);
+addGlobalEventListener("click", "#books", getBooks);
+addGlobalEventListener("click", "#subject", getSubjects);
+addGlobalEventListener("click", "#publishers", getPublishs);
+
+
+// const getButton = document.querySelector('#getButtons');
+// getButton.addEventListener('click', getButtons);
+
+
 
 // console.log("Script running");

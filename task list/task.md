@@ -10,8 +10,6 @@
 - I made a get_route for the "contributors".
 - I made a specific get_route for a single contributor
 
-# What to do next
-## to do first
 - Create server
 - implement get route in server
 - test the 2 get routes with postman
@@ -23,12 +21,21 @@
 - - subjects
 - - books
 
+# What to do next
+
+- I need to make the junction tables
+
+- input junction data
+- post request
+- delete request
+- put request (edit and stuff)
+
+
+## to do first
+
 ## what is happening now
 
-- I need to make it so that the user sees books, its just a list of contributors right now.
-
 ----
-- Make a HTML page that shows the list of contributors.
 - good reads show a list of books, specifically discovery books.
 - want a list of books. When I click on it, get more information about it
 ![alt text](image-1.png)

@@ -64,3 +64,25 @@ CREATE TABLE contribution_role (
     PRIMARY KEY (contribution_role_id)
 );
 END; $SYNTAX_CHECK$;
+
+DO $SYNTAX_CHECK$ BEGIN RETURN;
+CREATE TABLE books_contributor (
+    book_id INT NOT NULL, 
+    contributor_id UUID NOT NULL,
+    contribution_role_id INT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (contributor_id) REFERENCES contributor(contributor_id),
+    FOREIGN KEY (contribution_role_id) REFERENCES contribution_role(contribution_role_id)
+);
+
+END; $SYNTAX_CHECK$;
+
+DO $SYNTAX_CHECK$ BEGIN RETURN;
+CREATE TABLE subject_books (
+    book_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (subject_id) REFERENCES subject(subject_id)
+);
+
+END; $SYNTAX_CHECK$;
