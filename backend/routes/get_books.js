@@ -11,6 +11,7 @@ export default router.get('/:id?', async (req, res) => {
         res.json(book);
     } else {
         const book = await get_book(book_id);
+        console.log(book_id);
         res.json(book);
     }
 })

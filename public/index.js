@@ -1,4 +1,16 @@
 
+function grid(data) {
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute("class", "grid-item");
+    gridItem.innerHTML = data;
+    return gridItem;
+}
+
+async function errorHandle(response) {
+    throw new Error(`Response Status: ${response.status}`);
+}
+
+
 async function getContribs() {
     const url = 'http://localhost:8080/get/contrib/';
     try {
@@ -15,6 +27,7 @@ async function getContribs() {
 
             const card = document.createElement('div'); // call function, make div, class
             card.id = data[items].contributor_id;
+            card.className = "contrib-card";
             const title = grid(data[items].contributor_title);
             const firstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
             const lastName = grid(data[items].contributor_last_name);
@@ -28,16 +41,74 @@ async function getContribs() {
     }
 }
 
-function grid(data) {
-    const gridItem = document.createElement('div');
-    gridItem.setAttribute("class", "grid-item");
-    gridItem.innerHTML = data;
-    return gridItem;
+function inputText(id, placeholder) {
+    const input = document.createElement('input');
+    input.setAttribute("type", "text")
+    input.setAttribute("placeholder", placeholder)
+    input.setAttribute("id", id);
+    input.setAttribute("className", "input-class");
+    input.setAttribute("name", id);
+    return input;
 }
 
-async function errorHandle(response) {
-    throw new Error(`Response Status: ${response.status}`);
+function postContribForm() {
+    try {
+        const currentDiv = document.querySelector('#records');
+        currentDiv.innerHTML = "";
+
+        const title = inputText("title", "Title");
+        const firstName = inputText("firstName", "First Name");
+        const lastName = inputText("lastName", "Last Name");
+        const postButton = document.createElement("button");
+
+
+        postButton.setAttribute("id", "post-button");
+        postButton.type = "submit"; //setAttribute("type", "button");
+        postButton.innerHTML = "submit";
+
+
+        const form = document.createElement("form");
+        form.setAttribute("id", "form");
+
+        form.append(title, firstName, lastName, postButton);
+        // form.appendChild(postButton);
+
+        currentDiv.appendChild(form);
+    } catch (error) {
+        console.log(error.message);
+
+    }
 }
+
+async function postContrib() {
+    try {
+        const url = "http://localhost:8080/post/contrib/";
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+        const formEl = document.querySelector('#form');
+
+        formEl.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const formData = new FormData(formEl);
+            console.log(formData.get("title"));
+            console.log(formData.get("firstName"));
+            console.log(formData.get("lastName"));
+
+            const response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ title, firstName, lastName }),
+                headers: myHeaders,
+            });
+
+        });
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 async function getSubjects() {
     const url = 'http://localhost:8080/get/subject';
@@ -121,41 +192,51 @@ async function getPublishs() {
     }
 }
 
+function clear() {
+    const records = document.querySelector('#records');
+    records.innerHTML = "";
+}
+
 // Want a list of books
 
 function createGetButtons() {
+    clear();
+
     const buttonContainer = document.querySelector('#buttonContainer');
     buttonContainer.innerHTML = "";
     const contrib = document.createElement('button');
     const pub = document.createElement('button');
     const sub = document.createElement('button');
     const book = document.createElement('button');
-    contrib.id = "contribs";
+    contrib.id = "get-contribs";
     contrib.innerHTML = "Get Contributors";
-    pub.id = "publishers";
+    pub.id = "get-publishers";
     pub.innerHTML = "Get Publishers";
-    sub.id = "subject";
+    sub.id = "get-subject";
     sub.innerHTML = "Get Subjects";
-    book.id = "books";
+    book.id = "get-books";
     book.innerHTML = "Get Books";
     buttonContainer.append(contrib, pub, sub, book);
 }
 
 function createPostButtons() {
+    clear();
+
+
     const buttonContainer = document.querySelector('#buttonContainer');
     buttonContainer.innerHTML = "";
     const contrib = document.createElement('button');
     const pub = document.createElement('button');
     const sub = document.createElement('button');
     const book = document.createElement('button');
-    contrib.id = "contribs";
-    contrib.innerHTML = "Post Contributors";
-    pub.id = "publishers";
-    pub.innerHTML = "Post Publishers";
-    sub.id = "subject";
-    sub.innerHTML = "Post Subjects";
-    book.id = "books";
-    book.innerHTML = "Post Books";
+    contrib.id = "post-contribs";
+    pub.id = "post-publishers";
+    sub.id = "post-subject";
+    book.id = "post-books";
+    contrib.innerHTML = "Post Contributors Form";
+    pub.innerHTML = "Post Publishers Form";
+    sub.innerHTML = "Post Subjects Form";
+    book.innerHTML = "Post Books Form";
     buttonContainer.append(contrib, pub, sub, book);
 }
 
@@ -171,15 +252,13 @@ addGlobalEventListener("click", "#getButtons", createGetButtons)
 addGlobalEventListener("click", "#postButtons", createPostButtons)
 
 
-addGlobalEventListener("click", "#contribs", getContribs);
-addGlobalEventListener("click", "#books", getBooks);
-addGlobalEventListener("click", "#subject", getSubjects);
-addGlobalEventListener("click", "#publishers", getPublishs);
+addGlobalEventListener("click", "#get-contribs", getContribs);
+addGlobalEventListener("click", "#get-books", getBooks);
+addGlobalEventListener("click", "#get-subject", getSubjects);
+addGlobalEventListener("click", "#get-publishers", getPublishs);
 
-
-// const getButton = document.querySelector('#getButtons');
-// getButton.addEventListener('click', getButtons);
-
+addGlobalEventListener("click", "#post-contribs", postContribForm);
+addGlobalEventListener("click", "#post-button", postContrib);
 
 
 // console.log("Script running");

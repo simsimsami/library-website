@@ -9,3 +9,9 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     text-align: center;
 }
+
+.contrib-card {
+    padding: 10px;
+    /* border: 5px solid black; */
+    grid-row: auto;
+}

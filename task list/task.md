@@ -21,9 +21,9 @@
 - - subjects
 - - books
 
-# What to do next
+- - made 2 junction tables
 
-- I need to make the junction tables
+# What to do next
 
 - input junction data
 - post request
@@ -32,6 +32,12 @@
 
 
 ## to do first
+- input junction data
+- post request for contributions
+- post request for books
+- post request for publishers
+- post request for contribution_roles
+
 
 ## what is happening now
 

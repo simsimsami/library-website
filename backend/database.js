@@ -19,6 +19,9 @@ async function getConnection() {
     await client.connect();
     return client;
 }
+
+// get routes
+
 // contrib functions. I want to show contributors
 export async function get_contribs() {
     try {
@@ -96,9 +99,24 @@ export async function get_books() {
 export async function get_book(book_id) {
     try {
         const response = (await getConnection()).query('SELECT * from book where book_id = $1', [book_id]);
-        return (await response).rowsl
+        return (await response).rows;
     } catch (e) {
         console.log(e);
     }
 }
-// example for future get_contrib(`'24c8c59e-a9fe-46e8-b4df-5ac8e0c46847'`);
+
+
+// post routes
+
+export async function post_contrib(contributor_first_name, contributor_last_name, contributor_title) {
+    try {
+        const text = "INSERT INTO contributor (contributor_first_name, contributor_last_name, contributor_title) VALUES ($1, $2, $3) RETURNING * ";
+        const values = [contributor_first_name, contributor_last_name, contributor_title]
+        const response = (await getConnection()).query(text, values);
+        console.log("Data posted");
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// insert into contributor(contributor_first_name, contributor_last_name, contributor_title) values('Kimberly', 'Ondrak', 'Mrs');

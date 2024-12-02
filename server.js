@@ -3,6 +3,7 @@ import getContrib from './backend/routes/get_contribs.js';
 import getPublish from './backend/routes/get_publishers.js';
 import getSubject from './backend/routes/get_subject.js';
 import getBook from './backend/routes/get_books.js';
+import postContrib from './backend/routes/post_contrib.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { KEYS } from './config/keys.js'
@@ -28,3 +29,4 @@ app.use('/get/contrib', getContrib);
 app.use('/get/publisher', getPublish);
 app.use('/get/subject', getSubject);
 app.use('/get/book', getBook);
+app.use('/post/contrib', postContrib);
