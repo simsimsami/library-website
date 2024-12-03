@@ -1,4 +1,3 @@
-
 function grid(data) {
     const gridItem = document.createElement('div');
     gridItem.setAttribute("class", "grid-item");
@@ -84,25 +83,29 @@ async function postContrib() {
     try {
         const url = "http://localhost:8080/post/contrib/";
         const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Accept", "application/json, text/plain, */*")
 
         const formEl = document.querySelector('#form');
+        const formData = new FormData(formEl);
 
         formEl.addEventListener("submit", async event => {
             event.preventDefault();
 
-            const formData = new FormData(formEl);
-            console.log(formData.get("title"));
-            console.log(formData.get("firstName"));
-            console.log(formData.get("lastName"));
-
-            const response = await fetch(url, {
-                method: "POST",
-                body: JSON.stringify({ title, firstName, lastName }),
-                headers: myHeaders,
-            });
-
         });
+        const title = formData.get("title");
+        const firstName = formData.get("firstName");
+        const lastName = formData.get("lastName");
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: myHeaders,
+            body: JSON.stringify({
+                contributor_first_name: firstName,
+                contributor_last_name: lastName,
+                contributor_title: title
+            }),
+        }).catch(error => errorHandle(error));
 
     } catch (error) {
         console.log(error.message);
@@ -259,6 +262,7 @@ addGlobalEventListener("click", "#get-publishers", getPublishs);
 
 addGlobalEventListener("click", "#post-contribs", postContribForm);
 addGlobalEventListener("click", "#post-button", postContrib);
+
 
 
 // console.log("Script running");

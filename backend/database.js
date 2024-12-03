@@ -113,7 +113,7 @@ export async function post_contrib(contributor_first_name, contributor_last_name
         const text = "INSERT INTO contributor (contributor_first_name, contributor_last_name, contributor_title) VALUES ($1, $2, $3) RETURNING * ";
         const values = [contributor_first_name, contributor_last_name, contributor_title]
         const response = (await getConnection()).query(text, values);
-        console.log("Data posted");
+        console.log("Data Inserted");
     } catch (e) {
         console.log(e);
     }
