@@ -1,9 +1,13 @@
 import express from 'express';
-import getContrib from './backend/routes/get_contribs.js';
-import getPublish from './backend/routes/get_publishers.js';
-import getSubject from './backend/routes/get_subject.js';
-import getBook from './backend/routes/get_books.js';
-import postContrib from './backend/routes/post_contrib.js'
+import getContrib from './backend/routes/getRoutes/get_contribs.js';
+import getPublish from './backend/routes/getRoutes/get_publishers.js';
+import getSubject from './backend/routes/getRoutes/get_subject.js';
+import getBook from './backend/routes/getRoutes/get_books.js';
+import getRole from './backend/routes/getRoutes/get_roles.js'
+
+import postContrib from './backend/routes/postRoutes/post_contrib.js'
+import postBookContrib from './backend/routes/postRoutes/post_book_contrib.js'
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { KEYS } from './config/keys.js'
@@ -27,7 +31,10 @@ app.use('/get/contrib', getContrib);
 app.use('/get/publisher', getPublish);
 app.use('/get/subject', getSubject);
 app.use('/get/book', getBook);
+app.use('/get/role', getRole);
+
 app.use('/post/contrib', postContrib);
+app.use('/post/bookContrib', postBookContrib);
 
 // Start Server
 app.listen(KEYS.PORT, () => {

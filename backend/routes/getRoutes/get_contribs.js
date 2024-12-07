@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { get_contrib, get_contribs } from "../database.js";
+import { get_contrib, get_contribs } from "../../database.js";
 
 // get_contribs and get_contrib
 

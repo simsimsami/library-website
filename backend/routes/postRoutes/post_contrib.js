@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 const router = express.Router();
 router.use(bodyParser.json());
-import { post_contrib } from '../database.js';
+import { post_contrib } from '../../database.js';
 
 export default router.post('/', async (req, res) => {
     const body = req.body;

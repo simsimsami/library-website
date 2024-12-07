@@ -67,7 +67,7 @@ export async function postContrib() {
         const url = "http://localhost:8080/post/contrib/";
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Accept", "application/json, text/plain, */*")
+        myHeaders.append("Accept", "application/json, text/plain, */*");
 
         const formEl = document.querySelector('#form');
         const formData = new FormData(formEl);

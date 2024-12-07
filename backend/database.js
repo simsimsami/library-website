@@ -1,4 +1,5 @@
 import pg from 'pg';
+import { errorHandle } from '../public/src/utility/errorhandle.js';
 const { Client, Pool } = pg;
 const client = new Client({
     user: 'postgres',
@@ -35,6 +36,7 @@ export async function get_contribs() {
 // specific contrib will show what contributions they have done
 export async function get_contrib(contrib_id) {
     try {
+        // not properly finished
         const response = (await getConnection()).query(`SELECT * from contributor where contributor_id = $1`, [contrib_id]);
         return (await response).rows
     } catch (e) {
@@ -87,6 +89,15 @@ export async function get_contrib_roles() {
         console.log(e);
     }
 }
+
+export async function get_contrib_role(role_id) {
+    try {
+        const response = (await getConnection()).query(`SELECT * from contribution_role where contribution_role_id = $1`, [role_id]);
+        return (await response).rows;
+    } catch (e) {
+        console.log(e);
+    }
+}
 // books
 export async function get_books() {
     try {
@@ -112,11 +123,20 @@ export async function post_contrib(contributor_first_name, contributor_last_name
     try {
         const text = "INSERT INTO contributor (contributor_first_name, contributor_last_name, contributor_title) VALUES ($1, $2, $3) RETURNING * ";
         const values = [contributor_first_name, contributor_last_name, contributor_title]
-        const response = (await getConnection()).query(text, values);
+        const response = (await getConnection()).query(text, values).catch(error => errorHandle(error));
         console.log("Data Inserted");
     } catch (e) {
         console.log(e);
     }
 }
 
-// insert into contributor(contributor_first_name, contributor_last_name, contributor_title) values('Kimberly', 'Ondrak', 'Mrs');
+export async function post_bookContrib(book_id, contrib_id , contriRole_id) {
+    try {
+        const text = "INSERT INTO books_contributor (book_id, contributor_id, contribution_role_id VALUES ($1, $2, $3) RETURNING * ";
+        const values = [book_id, contrib_id, contriRole_id];
+        const response = (await getConnection()).query(text, values).catch(error => errorHandle(error));
+        console.log("Data Inserted");
+    } catch (e) {
+        console.log(e);
+    }
+}

@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { get_subjects, get_subject } from '../database.js';
+import { get_subjects, get_subject } from '../../database.js';
 
 export default router.get('/:id?', async (req, res) => {
     let sub_id = req.params.id;
