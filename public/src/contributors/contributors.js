@@ -1,24 +1,20 @@
 import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
+import { fetchData } from "../utility/fetchData.js";
+import { elementCreator } from "../utility/elementCreator.js";
 
 export async function getContribs() {
     const url = 'http://localhost:8080/get/contrib/';
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-        const data = await response.json();
+        const data = await fetchData(url);
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
         for (const items in data) {
-            // I need id, first name, surname and title.
-
-            const card = document.createElement('div'); // call function, make div, class
-            card.id = data[items].contributor_id;
+            const card = elementCreator("div", data[items].contributor_id, " ");
             card.className = "contrib-card";
+
             const title = grid(data[items].contributor_title);
             const firstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
             const lastName = grid(data[items].contributor_last_name);
@@ -34,28 +30,32 @@ export async function getContribs() {
 
 export function postContribForm() {
     try {
-        console.log("Function working");
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
         const title = inputText("title", "Title");
         const firstName = inputText("firstName", "First Name");
         const lastName = inputText("lastName", "Last Name");
-        const postButton = document.createElement("button");
 
+        const postButton = elementCreator("button", "post-button", "submit");
+        postButton.type = "submit";
 
-        postButton.setAttribute("id", "post-button");
-        postButton.type = "submit"; //setAttribute("type", "button");
-        postButton.innerHTML = "submit";
-
-
-        const form = document.createElement("form");
-        form.setAttribute("id", "form");
+        const form = elementCreator("form", "form", " ");
 
         form.append(title, firstName, lastName, postButton);
+        currentDiv.appendChild(form);
+
+        // const postButton = document.createElement("button");
+        // postButton.setAttribute("id", "post-button");
+        // postButton.type = "submit";
+        // postButton.innerHTML = "submit";
+
+
+        // const form = document.createElement("form");
+        // form.setAttribute("id", "form");
+
         // form.appendChild(postButton);
 
-        currentDiv.appendChild(form);
     } catch (error) {
         console.log(error.message);
 

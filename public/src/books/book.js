@@ -1,14 +1,13 @@
 import { grid } from "../utility/grid.js";
-import { errorHandle } from "../utility/errorhandle.js";
+import { setupSelect } from "../utility/setupSelect.js";
+import { elementCreator } from "../utility/elementCreator.js";
+import { fetchData } from "../utility/fetchData.js";
 
 export async function getBooks() {
     const url = 'http://localhost:8080/get/book/';
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-        const data = await response.json();
+        const data = await fetchData(url);
+
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
@@ -30,31 +29,18 @@ export async function getBooks() {
     }
 }
 
-function setupSelect(id, text) {
-    const option = document.createElement("option");
-    option.value = `${text}`;
-    option.id = id;
-    option.innerHTML = text;
-    return option;
-}
-
-
 async function getBookList() {
     try {
         const url = 'http://localhost:8080/get/book/';
-        const response = await fetch(url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-        const data = await response.json();
+        const data = await fetchData(url);
         
         const selecBook = document.createElement("select");
         selecBook.name = "Select Book";
         
         const currentDiv = document.querySelector("#records");
-        const placeholder = document.createElement("option");
-        placeholder.id = "placeholder";
-        placeholder.innerHTML = "placeholder";
+
+        const placeholder = elementCreator("option", "placeholder", "placeholder");
+        
         selecBook.appendChild(placeholder);
     
         for (const items in data) {
@@ -70,20 +56,15 @@ async function getBookList() {
 async function getContribList() {
     try {
         const url = "http://localhost:8080/get/contrib";
-        const response = await fetch (url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-
-        const data = await response.json();
+        const data = await fetchData(url);
 
         const selecContrib = document.createElement("select");
         selecContrib.name = "Select Contributor";
 
         const currentDiv = document.querySelector("#records");
-        const placeholder = document.createElement("option");
-        placeholder.id = "placeholder";
-        placeholder.innerHTML = "placeholder";
+
+        const placeholder = elementCreator("option", "placeholder", "placeholder");
+
         selecContrib.appendChild(placeholder);
 
         for (const items in data) {
@@ -101,20 +82,19 @@ async function getContribList() {
 async function getRoleList() {
     try {
         const url = "http://localhost:8080/get/role";
-        const response = await fetch(url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-
-        const data = await response.json();
+        const data = await fetchData(url);
 
         const selecRole = document.createElement("select");
         selecRole.name = "Select Contribution Role";
 
         const currentDiv = document.querySelector("#records");
-        const placeholder = document.createElement("option");
-        placeholder.id = "placeholder";
-        placeholder.innerHTML = "placeholder";
+
+        const placeholder = elementCreator("option", "placeholder", "placeholder");
+
+        // const placeholder = document.createElement("option");
+        // placeholder.id = "placeholder";
+        // placeholder.innerHTML = "placeholder";
+
         selecRole.appendChild(placeholder);
 
         for (const items in data) {
@@ -129,7 +109,6 @@ async function getRoleList() {
 }
 
 export async function postBookContrib() {
-    // I need three get requests. Focus on books first
     try {
 
         const currentDiv = document.querySelector("#records");

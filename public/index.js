@@ -2,25 +2,26 @@ import { getBooks, postBookContrib} from './src/books/book.js';
 import { postContrib, getContribs, postContribForm } from './src/contributors/contributors.js';
 import { getSubjects } from './src/subject/subject.js';
 import { getPublishs } from './src/publishers/publishers.js';
+
+
+function buttonTemplate(id, innerHTML) {
+    const button = document.createElement("button");
+    button.id = id;
+    button.innerHTML = innerHTML;
+    return button;
+}
  
 function createGetButtons() {
     const currentDiv = document.querySelector('#records');
-        currentDiv.innerHTML = "";
+    currentDiv.innerHTML = "";
 
     const buttonContainer = document.querySelector('#buttonContainer');
     buttonContainer.innerHTML = "";
-    const contrib = document.createElement('button');
-    const pub = document.createElement('button');
-    const sub = document.createElement('button');
-    const book = document.createElement('button');
-    contrib.id = "get-contribs";
-    contrib.innerHTML = "Get Contributors";
-    pub.id = "get-publishers";
-    pub.innerHTML = "Get Publishers";
-    sub.id = "get-subject";
-    sub.innerHTML = "Get Subjects";
-    book.id = "get-books";
-    book.innerHTML = "Get Books";
+
+    const contrib = buttonTemplate("get-contribs", "Get Contributors");
+    const pub = buttonTemplate("get-publishers", "Get Publishers");
+    const sub = buttonTemplate("get-subject", "Get Subjects");
+    const book = buttonTemplate("get-books", "Get Books");
     buttonContainer.append(contrib, pub, sub, book);
 }
 
@@ -31,26 +32,12 @@ function createPostButtons() {
     const buttonContainer = document.querySelector('#buttonContainer');
     buttonContainer.innerHTML = "";
 
-    const bookContrib = document.createElement('button');
-    const contrib = document.createElement('button');
-    const pub = document.createElement('button');
-    const sub = document.createElement('button');
-    const book = document.createElement('button');
-
-    bookContrib.id = "post-bookContrib";
-    contrib.id = "post-contribs";
-    pub.id = "post-publishers";
-    sub.id = "post-subject";
-    book.id = "post-books";
-
-    bookContrib.innerHTML = "Enter Books Contribution";
-    contrib.innerHTML = "Enter Contributor Form";
-    pub.innerHTML = "Post Publishers Form";
-    sub.innerHTML = "Post Subjects Form";
-    book.innerHTML = "Post Books Form";
-    // buttonContainer.append(bookContrib, contrib, pub, sub, book);
-    buttonContainer.appendChild(bookContrib);
-
+    const bookContrib = buttonTemplate("post-bookContrib", "Enter Books Contribution");
+    const contrib = buttonTemplate("post-contribs","Enter Contributor Form");
+    const pub = buttonTemplate("post-publishers","Post Publishers Form");
+    const sub = buttonTemplate("post-subject", "Post Subjects Form");
+    const book = buttonTemplate("post-books", "Post Books Form");
+    buttonContainer.append(bookContrib, contrib, pub, sub, book);
 }
 
 function addGlobalEventListener(type, selector, callback) {
