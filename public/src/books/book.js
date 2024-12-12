@@ -3,7 +3,20 @@ import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { fetchData } from "../utility/fetchData.js";
 
+import apiRequest from "../../apiClient2.js";
+
+// class object get request thing, too tired.
+
 export async function getBooks() {
+    const request = await new apiRequest("http://localhost:8080", "get/book/", "GET");
+
+    const data = await request.getRequest();
+
+    console.log(data);
+
+}
+
+export async function getBooks2() {
     const url = 'http://localhost:8080/get/book/';
     try {
         const data = await fetchData(url);
