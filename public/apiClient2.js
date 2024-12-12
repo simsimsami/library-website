@@ -1,5 +1,3 @@
-import { errorHandle } from "./src/utility/errorhandle.js";
-
 class apiRequest {
     constructor(baseUrl, path, requestInit, object) {
         this.baseUrl = baseUrl;
@@ -14,15 +12,23 @@ class apiRequest {
     }
 
     async getRequest() {
-        const myHeaders = new Headers({
-            "Content-Type": "application/json",
-        });
-        const response = await fetch(`${this.baseUrl}/${this.path}`, {
-            headers: myHeaders,
-            method: this.requestInit
-        });
+        try {
 
-        return await response.json();
+            const myHeaders = new Headers({
+                "Content-Type": "application/json",
+            });
+            const response = await fetch(`${this.baseUrl}/${this.path}`, {
+                headers: myHeaders,
+                method: this.requestInit
+            });
+            if (!response.ok) {
+                throw new error(`Request failed with status ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.log("Error fetching data: ", error.message);
+        }
     }
 
     // async postRequest() {

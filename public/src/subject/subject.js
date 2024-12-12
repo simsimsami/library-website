@@ -1,14 +1,11 @@
 import { grid } from "../utility/grid.js";
+import apiRequest from "../../apiClient2.js";
 import { errorHandle } from "../utility/errorhandle.js";
 
 export async function getSubjects() {
-    const url = 'http://localhost:8080/get/subject';
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            errorHandle(response);
-        }
-        const data = await response.json();
+        const request = await new apiRequest("http://localhost:8080", "get/subject", "GET");
+        const data = request.getRequest();
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
@@ -21,6 +18,6 @@ export async function getSubjects() {
             currentDiv.appendChild(card);
         }
     } catch (error) {
-        console.log(error.message);
+        errorHandle(error);
     }
 }

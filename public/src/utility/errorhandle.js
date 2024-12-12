@@ -1,3 +1,3 @@
-export async function errorHandle(response) {
-    throw new Error(`Response Status: ${response.status}`);
+export async function errorHandle(error) {
+    throw new Error(`${error.name}: ${error.message}`);
 }

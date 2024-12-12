@@ -1,13 +1,14 @@
 import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
-import { fetchData } from "../utility/fetchData.js";
 import { elementCreator } from "../utility/elementCreator.js";
+import apiRequest from "../../apiClient2.js"
 
 export async function getContribs() {
-    const url = 'http://localhost:8080/get/contrib/';
     try {
-        const data = await fetchData(url);
+        const request = await new apiRequest("http://localhost:8080", "get/contrib/", "GET");
+        const data = await request.getRequest();
+
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
@@ -22,9 +23,8 @@ export async function getContribs() {
             card.append(title, firstName, lastName);
             currentDiv.appendChild(card);
         }
-
     } catch (error) {
-        console.log(error.message)
+        errorHandle(error);
     }
 }
 
@@ -44,21 +44,8 @@ export function postContribForm() {
 
         form.append(title, firstName, lastName, postButton);
         currentDiv.appendChild(form);
-
-        // const postButton = document.createElement("button");
-        // postButton.setAttribute("id", "post-button");
-        // postButton.type = "submit";
-        // postButton.innerHTML = "submit";
-
-
-        // const form = document.createElement("form");
-        // form.setAttribute("id", "form");
-
-        // form.appendChild(postButton);
-
     } catch (error) {
-        console.log(error.message);
-
+        errorHandle(error);
     }
 }
 
@@ -72,10 +59,6 @@ export async function postContrib() {
         const formEl = document.querySelector('#form');
         const formData = new FormData(formEl);
 
-        // formEl.addEventListener("submit", async event => {
-        //     event.preventDefault();
-
-        // });
         const title = formData.get("title");
         const firstName = formData.get("firstName");
         const lastName = formData.get("lastName");
@@ -89,8 +72,7 @@ export async function postContrib() {
                 contributor_title: title
             }),
         }).catch(error => errorHandle(error));
-
     } catch (error) {
-        console.log(error.message);
+        errorHandle(error);
     }
 }
