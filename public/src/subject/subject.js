@@ -1,5 +1,5 @@
 import { grid } from "../utility/grid.js";
-import apiRequest from "../../apiClient2.js";
+import apiRequest from "../../apiServer.js";
 import { errorHandle } from "../utility/errorhandle.js";
 
 export async function getSubjects() {
@@ -18,6 +18,6 @@ export async function getSubjects() {
             currentDiv.appendChild(card);
         }
     } catch (error) {
-        errorHandle(error);
+        errorHandle(error.message);
     }
 }

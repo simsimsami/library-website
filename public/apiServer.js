@@ -1,6 +1,7 @@
 class apiRequest {
-    constructor(baseUrl, path, requestInit, object) {
+    constructor(baseUrl, port, path, requestInit, object) {
         this.baseUrl = baseUrl;
+        this.port = port;
         this.path = path;
         this.requestInit = requestInit;
         this.object = object;
@@ -13,21 +14,20 @@ class apiRequest {
 
     async getRequest() {
         try {
-
             const myHeaders = new Headers({
                 "Content-Type": "application/json",
             });
-            const response = await fetch(`${this.baseUrl}/${this.path}`, {
-                headers: myHeaders,
-                method: this.requestInit
+            const response = await fetch(`http://${this.baseUrl}:${this.port}/${this.path}`, {
+                method: this.requestInit,
+                headers: myHeaders
             });
             if (!response.ok) {
-                throw new error(`Request failed with status ${response.status}`);
+                throw new error(`Request failed with status ${response}`);
             }
             
             return await response.json();
         } catch (error) {
-            console.log("Error fetching data: ", error.message);
+            console.log("Error fetching data: ", error);
         }
     }
 
@@ -37,7 +37,7 @@ class apiRequest {
     //         "Content-Type": "application/json",
     //         "Accept": "application/json, text/plain, */*"
     //     });
-    //     const response = await fetch(`${this.baseUrl}/${this.path}`, {
+    //     const response = await fetch(`${this.baseUrl}:${this.port}/${this.path}`, {
     //         method: this.requestInit,
     //         headers: myHeaders,
     //         body: JSON.stringify({object})

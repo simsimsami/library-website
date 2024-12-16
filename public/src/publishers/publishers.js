@@ -1,6 +1,6 @@
 import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
-import apiRequest from "../../apiClient2.js";
+import apiRequest from "../../apiServer.js";
 
 export async function getPublishs() {
     try {
@@ -18,6 +18,6 @@ export async function getPublishs() {
             currentDiv.appendChild(card);
         }
     } catch (error) {
-        errorHandle(error);
+        errorHandle(error.message);
     }
 }

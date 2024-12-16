@@ -23,10 +23,12 @@
 
 - - made 2 junction tables
 
+-- added post route from front end: books_contribution table
+
 ## What to do next
 
-- Add assign function.
-- - Contributors, contribution roles and books.
+- Fix get request for books (I dont get any publishers. Inner join table);
+- make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they have nee in
 
 [!\[alt text\] (functionPlan.md)](functionPlan.md)
 

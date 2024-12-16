@@ -2,7 +2,7 @@ import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import apiRequest from "../../apiClient2.js"
+import apiRequest from "../../apiServer.js"
 
 export async function getContribs() {
     try {
@@ -24,7 +24,7 @@ export async function getContribs() {
             currentDiv.appendChild(card);
         }
     } catch (error) {
-        errorHandle(error);
+        errorHandle(error.message);
     }
 }
 
@@ -40,12 +40,12 @@ export function postContribForm() {
         const postButton = elementCreator("button", "post-button", "submit");
         postButton.type = "submit";
 
-        const form = elementCreator("form", "form", " ");
+        const form = elementCreator("form", "formContribForm", " ");
 
         form.append(title, firstName, lastName, postButton);
         currentDiv.appendChild(form);
     } catch (error) {
-        errorHandle(error);
+        errorHandle(error.message);
     }
 }
 
@@ -56,7 +56,7 @@ export async function postContrib() {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Accept", "application/json, text/plain, */*");
 
-        const formEl = document.querySelector('#form');
+        const formEl = document.querySelector('#formContribForm');
         const formData = new FormData(formEl);
 
         const title = formData.get("title");
@@ -73,6 +73,6 @@ export async function postContrib() {
             }),
         }).catch(error => errorHandle(error));
     } catch (error) {
-        errorHandle(error);
+        errorHandle(error.message);
     }
 }
