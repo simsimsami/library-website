@@ -2,7 +2,7 @@ import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import apiRequest from "../../apiServer.js"
+import apiRequest from "../../apiRequest.js"
 
 export async function getContribs() {
     try {

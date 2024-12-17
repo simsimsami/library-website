@@ -3,10 +3,9 @@ import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { fetchData } from "../utility/fetchData.js";
 
-import apiRequest from "../../apiServer.js";
+import apiRequest from "../../apiRequest.js";
 import { errorHandle } from "../utility/errorhandle.js";
 
-// class object get request thing, too tired.
 
 export async function getBooks() {
     try {

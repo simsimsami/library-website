@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.server.js",
+    "dev": "nodemon server.js",
     "dbstatus": "sudo service postgresql status",
     "17-start": "sudo service postgresql start 17"
   },

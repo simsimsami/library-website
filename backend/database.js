@@ -1,5 +1,6 @@
 import pg from 'pg';
-import { errorHandle } from '../public/src/utility/errorhandle.js';
+import { errorHandle } from '../frontend/src/utility/errorhandle.js';
+
 const { Client, Pool } = pg;
 const client = new Client({
     user: 'postgres',

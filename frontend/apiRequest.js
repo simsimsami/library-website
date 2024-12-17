@@ -30,19 +30,6 @@ class apiRequest {
             console.log("Error fetching data: ", error);
         }
     }
-
-    // async postRequest() {
-    //     const object = this.object
-    //     const myHeaders = new Headers({
-    //         "Content-Type": "application/json",
-    //         "Accept": "application/json, text/plain, */*"
-    //     });
-    //     const response = await fetch(`${this.baseUrl}:${this.port}/${this.path}`, {
-    //         method: this.requestInit,
-    //         headers: myHeaders,
-    //         body: JSON.stringify({object})
-    //     }).catch(error => errorHandle(error));
-    // }
 }
 
 export default apiRequest;

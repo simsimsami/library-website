@@ -1,20 +1,20 @@
 import { grid } from "../utility/grid.js";
+import apiRequest from "../../apiRequest.js";
 import { errorHandle } from "../utility/errorhandle.js";
-import apiRequest from "../../apiServer.js";
 
-export async function getPublishs() {
+export async function getSubjects() {
     try {
-        const request = await new apiRequest("http://localhost:8080", "get/publish/", "GET");
-        const data = await request.getRequest();
+        const request = await new apiRequest("http://localhost:8080", "get/subject", "GET");
+        const data = request.getRequest();
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
         for (const items in data) {
             const card = document.createElement('div');
-            card.id = data[items].publisher_id;
+            card.id = data[items].subject_id;
 
-            const pubName = grid(data[items].publisher_name);
-            card.appendChild(pubName);
+            const subTitle = grid(data[items].subject_title);
+            card.appendChild(subTitle);
             currentDiv.appendChild(card);
         }
     } catch (error) {
