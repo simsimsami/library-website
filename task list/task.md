@@ -1,7 +1,3 @@
-# what to do right now - what to do in 1-3 hours
-
-- implement table in database (contributors - or the people ) [X]
-- get fake data for the table in the database
 
 ## What I have done
 
@@ -28,32 +24,26 @@
 ## What to do next
 
 - Fix get request for books (I dont get any publishers. Inner join table);
-- make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they have nee in
+- make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
 
-[!\[alt text\] (functionPlan.md)](functionPlan.md)
+- when clicking on books, I want to show who has been involved and their roles. Need to show the books contributors and their contribution roles
 
-- I need to make getting books better. (show publishers).
-- Need to show the books contributors and their contribution roles
-
-- input junction data
 - post request
+- - for subjects
+- - for contributor roles
+- - publishers
+
 - delete request
-- put request (edit and stuff)
+- - contributors
+- - contributor roles
+- - books
+- - publishers
+- put request (edit and etc)
 
-## to do first
+## tasks
 
-- input junction data
+- post class
 - post request for contributions
 - post request for books
 - post request for publishers
 - post request for contribution_roles
-
-
-## what is happening now
-
-----
-- good reads show a list of books, specifically discovery books.
-- want a list of books. When I click on it, get more information about it
-
-![alt text](image-1.png)
-![alt text](image.png)

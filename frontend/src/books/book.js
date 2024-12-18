@@ -1,7 +1,6 @@
 import { grid } from "../utility/grid.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import { fetchData } from "../utility/fetchData.js";
 
 import apiRequest from "../../apiRequest.js";
 import { errorHandle } from "../utility/errorhandle.js";
@@ -16,13 +15,14 @@ export async function getBooks() {
         currentDiv.innerHTML = "";
         
         for (const items in data) {
-            const card = elementCreator("div", data[items].book_id);
+            console.log(data[items]);
+            const card = elementCreator("div", data[items].book_id, "");
             card.setAttribute("class", "grid-container");
             
             const bookTitle = grid(data[items].book_title);
             const book_release = grid(data[items].book_release_date);
             const isbn = grid(data[items].isbn);
-            const pub = "not yet implemented";
+            const pub = grid(data[items].publisher_name);
             
             card.append(bookTitle, book_release, isbn, pub);
             currentDiv.appendChild(card);

@@ -27,8 +27,8 @@ async function getConnection() {
 // contrib functions. I want to show contributors
 export async function get_contribs() {
     try {
-
-        const response = (await getConnection()).query(`SELECT * FROM contributor`)
+        const text = 'SELECT * FROM contributor';
+        const response = (await getConnection()).query(text)
         return (await response).rows;
     } catch (e) {
         console.log(e);
@@ -38,7 +38,9 @@ export async function get_contribs() {
 export async function get_contrib(contrib_id) {
     try {
         // not properly finished
-        const response = (await getConnection()).query(`SELECT * from contributor where contributor_id = $1`, [contrib_id]);
+        const text = 'SELECT * from contributor where contributor_id = $1';
+        const value = [contrib_id];
+        const response = (await getConnection()).query(text, value);
         return (await response).rows
     } catch (e) {
         console.log(e);
@@ -47,7 +49,8 @@ export async function get_contrib(contrib_id) {
 // publisher function. I want to show publishers
 export async function get_publishers() {
     try {
-        const response = (await getConnection()).query('SELECT * FROM publisher');
+        const text = 'SELECT * FROM publisher';
+        const response = (await getConnection()).query(text);
         return (await response).rows;
     } catch (e) {
         console.log(e);
@@ -56,7 +59,9 @@ export async function get_publishers() {
 // Specific publisher will show what books they have published
 export async function get_publisher(publisher_id) {
     try {
-        const response = (await getConnection()).query(`SELECT * FROM publisher WHERE publisher_id = $1`, [publisher_id]);
+        const text = 'SELECT * FROM publisher WHERE publisher_id = $1';
+        const value = [publisher_id];
+        const response = (await getConnection()).query(text, value);
         return (await response).rows;
     } catch (e) {
         console.log(e);
@@ -65,7 +70,8 @@ export async function get_publisher(publisher_id) {
 // show all subjects
 export async function get_subjects() {
     try {
-        const response = (await getConnection()).query(`SELECT * from subject`);
+        const text = 'SELECT * from subject';
+        const response = (await getConnection()).query(text);
         return (await response).rows;
     } catch (e) {
         console.log(e);
@@ -73,9 +79,11 @@ export async function get_subjects() {
 }
 // I want to show specific books that are with this subject (genre)
 // no book, just gonna show the single subject for now
-export async function get_subject(id) {
+export async function get_subject(sub_id) {
     try {
-        const response = (await getConnection()).query(`SELECT * from subject where subject_id = $1`, [id])
+        const text = 'SELECT * from subject where subject_id = $1';
+        const value = [sub_id];
+        const response = (await getConnection()).query(text, value)
         return (await response).rows;
     } catch (e) {
         console.log(e)
@@ -84,7 +92,8 @@ export async function get_subject(id) {
 // contribution roles
 export async function get_contrib_roles() {
     try {
-        const response = (await getConnection()).query(`SELECT * from contribution_role`);
+        const text = 'SELECT * from contribution_role';
+        const response = (await getConnection()).query(text);
         return (await response).rows;
     } catch (e) {
         console.log(e);
@@ -93,24 +102,31 @@ export async function get_contrib_roles() {
 
 export async function get_contrib_role(role_id) {
     try {
-        const response = (await getConnection()).query(`SELECT * from contribution_role where contribution_role_id = $1`, [role_id]);
+        const text = 'SELECT * from contribution_role where contribution_role_id = $1';
+        const value = [role_id];
+        const response = (await getConnection()).query(text, value);
         return (await response).rows;
     } catch (e) {
         console.log(e);
     }
 }
-// books
+// I want to show all relevant information on these books. title, release date, isbn and publisher
 export async function get_books() {
     try {
-        const response = (await getConnection()).query('SELECT * from book');
+        const text = 'SELECT b.book_id, b.book_title, p.publisher_name, b.book_release_date, b.isbn from book b INNER JOIN publisher p ON b.publisher_id = p.publisher_id ORDER BY b.book_id';
+        const response = (await getConnection()).query(text);
         return (await response).rows;
     } catch (e) {
         console.log(e);
     }
 }
+
+// I want to show relevant details when showing a specific book. Its genre, contributors, publishers.
 export async function get_book(book_id) {
     try {
-        const response = (await getConnection()).query('SELECT * from book where book_id = $1', [book_id]);
+        const text = 'SELECT b.book_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title, p.publisher_name FROM books_contributor book_con INNER JOIN book b ON b.book_id = book_con.book_id INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id INNER JOIN publisher p ON b.publisher_id = p.publisher_id WHERE b.book_id = $1';
+        const value = [book_id];
+        const response = (await getConnection()).query(text, value);
         return (await response).rows;
     } catch (e) {
         console.log(e);

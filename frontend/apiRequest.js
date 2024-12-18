@@ -26,8 +26,8 @@ class apiRequest {
             }
             
             return await response.json();
-        } catch (error) {
-            console.log("Error fetching data: ", error);
+        } catch (err) {
+            console.log("Error fetching data: ", err);
         }
     }
 }

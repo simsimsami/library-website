@@ -86,3 +86,63 @@ CREATE TABLE subject_books (
 );
 
 END; $SYNTAX_CHECK$;
+
+-- select book and publishers
+SELECT
+    b.book_id,
+    b.book_title,
+    p.publisher_name,
+    b.book_release_date,
+    b.isbn
+FROM
+    book b
+    INNER JOIN publisher p 
+    ON b.publisher_id = p.publisher_id
+ORDER BY
+    b.book_id;
+
+
+-- book, book_contributors contributor, publisher, subject_books, subject.
+-- book -> book_contributor
+-- contribution_role -> books_contributor
+-- contributor -> books_contributor
+-- book -> publisher
+
+--  no subject yet
+-- book -> subject_books
+-- subject -> subject_books
+
+
+SELECT
+    b.book_title,
+    con.contributor_title,
+    con.contributor_first_name,
+    con.contributor_last_name,
+    con_role.contribution_role_title,
+    p.publisher_name
+
+FROM books_contributor book_con
+INNER JOIN book b ON b.book_id = book_con.book_id
+INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id
+INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id
+INNER JOIN publisher p ON b.publisher_id = p.publisher_id
+
+WHERE b.book_id = 1;
+
+
+book.book_title,
+contributor.contributor_first_name,
+contributor.contributor_last_name,
+contribution_role.contribution_role_title,
+publisher.publisher_name,
+subject.subject_title,
+
+
+
+book
+contributor
+contribution_role
+books_contributor
+publisher
+subject
+subject_books

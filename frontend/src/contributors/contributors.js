@@ -6,7 +6,7 @@ import apiRequest from "../../apiRequest.js"
 
 export async function getContribs() {
     try {
-        const request = await new apiRequest("http://localhost:8080", "get/contrib/", "GET");
+        const request = await new apiRequest("localhost", "8080", "get/contrib/", "GET");
         const data = await request.getRequest();
 
         const currentDiv = document.querySelector('#records');
