@@ -16,11 +16,11 @@ export async function getContribs() {
             const card = elementCreator("div", data[items].contributor_id, " ");
             card.className = "contrib-card";
 
-            const title = grid(data[items].contributor_title);
-            const firstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
-            const lastName = grid(data[items].contributor_last_name);
+            const contriTitle = grid(data[items].contributor_title);
+            const contriFirstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
+            const contriLastName = grid(data[items].contributor_last_name);
 
-            card.append(title, firstName, lastName);
+            card.append(contriTitle, contriFirstName, contriLastName);
             currentDiv.appendChild(card);
         }
     } catch (error) {

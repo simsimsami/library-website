@@ -10,13 +10,9 @@ export async function getSubjects() {
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 
-        console.log("clicked");
-
         for (const items in data) {
             const card = document.createElement('div');
             card.id = data[items].subject_id;
-
-            console.log(data[items].subject_title);
 
             const subTitle = grid(data[items].subject_title);
             card.appendChild(subTitle);

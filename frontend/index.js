@@ -1,4 +1,4 @@
-import { getBooks, ListBookContrib, postBookContrib} from './src/books/book.js';
+import { getBooks, ListBookContrib, postBookContrib, getBookContribs} from './src/books/book.js';
 import { postContrib, getContribs, postContribForm } from './src/contributors/contributors.js';
 import { getSubjects } from './src/subject/subject.js';
 import { getPublishs } from './src/publishers/publishers.js';
@@ -43,7 +43,15 @@ function createPostButtons() {
 function addGlobalEventListener(type, selector, callback) {
     document.addEventListener(type, e => {
         if (e.target.matches(selector)) {
-            callback();
+            callback(e.target);
+        }
+    })
+}
+
+function addGlobalEventListenerEvents(type, selector, callback) {
+    document.addEventListener(type, e => {
+        if (e.target.matches(selector)) {
+            callback(e.target);
         }
     })
 }
@@ -56,6 +64,9 @@ addGlobalEventListener("click", "#get-contribs", getContribs);
 addGlobalEventListener("click", "#get-books", getBooks);
 addGlobalEventListener("click", "#get-subject", getSubjects);
 addGlobalEventListener("click", "#get-publishers", getPublishs);
+
+
+addGlobalEventListenerEvents("click", ".view-button", getBookContribs)
 
 addGlobalEventListener("click", "#post-contribs", postContribForm);
 addGlobalEventListener("click", "#post-button", postContrib);
