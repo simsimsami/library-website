@@ -3,10 +3,12 @@ import getContrib from './routes/getRoutes/get_contribs.js';
 import getPublish from './routes/getRoutes/get_publishers.js';
 import getSubject from './routes/getRoutes/get_subject.js';
 import getBook from './routes/getRoutes/get_books.js';
-import getRole from './routes/getRoutes/get_roles.js'
+import getRole from './routes/getRoutes/get_roles.js';
 
-import postContrib from './routes/postRoutes/post_contrib.js'
-import postBookContrib from './routes/postRoutes/post_book_contrib.js'
+import postContrib from './routes/postRoutes/post_contrib.js';
+import postBookContrib from './routes/postRoutes/post_book_contrib.js';
+import postBook from './routes/postRoutes/post_book.js';
+
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -54,8 +56,11 @@ class Server {
         
         this.app.use('/post/contrib', postContrib);
         this.app.use('/post/bookContrib', postBookContrib);
+        this.app.use('/post/book', postBook);
     }
-
+    getApp() {
+        return this.app;
+    }
     listen() {
         this.app.listen(this.PORT, () => {
             console.log("Server is listening on PORT ", this.PORT);

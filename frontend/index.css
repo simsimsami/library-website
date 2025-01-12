@@ -1,7 +1,9 @@
 .grid-container {
     display: grid;
-    grid-template-columns: auto;
     padding-bottom: 10px;
+    width: auto;
+    max-width: 100%;
+    margin: 0 10em;
 }
 
 .grid-item {

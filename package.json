@@ -5,6 +5,7 @@
   "description": "Second draft with the project, needing to start from the beginning since it got too complicated for me.",
   "main": "index.js",
   "scripts": {
+    "jest": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --forceExit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "dbstatus": "sudo service postgresql status",
@@ -16,8 +17,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "jest": "^29.7.0",
     "morgan": "^1.10.0",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

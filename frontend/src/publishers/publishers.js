@@ -12,6 +12,7 @@ export async function getPublishs() {
         for (const items in data) {
             const card = document.createElement('div');
             card.id = data[items].publisher_id;
+            card.setAttribute("class", "grid-container");
 
             const pubName = grid(data[items].publisher_name);
             card.appendChild(pubName);

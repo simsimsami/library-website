@@ -1,10 +1,9 @@
 import { grid } from "../utility/grid.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
-
+import { getSubjectList } from "../subject/subject.js";
 import apiRequest from "../../apiRequest.js";
 import { errorHandle } from "../utility/errorhandle.js";
-
 
 export async function getBooks() {
     try {
@@ -23,7 +22,7 @@ export async function getBooks() {
             const isbn = grid(data[items].isbn);
             const pub = grid(data[items].publisher_name);
             const viewButton = elementCreator("button", data[items].book_id, "View Contributors");
-            viewButton.setAttribute("class", "view-button")
+            viewButton.setAttribute("class", "view-button");
 
             card.append(bookTitle, book_release, isbn, pub, viewButton);
             currentDiv.appendChild(card);
@@ -35,7 +34,6 @@ export async function getBooks() {
 
 export async function getBookContribs(event) {
     try {
-
         const currentDiv = document.querySelector("#records");
         currentDiv.innerHTML = "";
 
@@ -43,8 +41,6 @@ export async function getBookContribs(event) {
 
         const response = await new apiRequest("localhost", "8080", `get/book/${bookId}`, "GET");
         const data = await response.getRequest();
-
-        console.log(data);
 
         for (const items in data) {
             const card = elementCreator("div", bookId, "");
@@ -111,7 +107,7 @@ async function getContribList() {
     }
 }
 
-async function getRoleList() {
+export async function getRoleList() {
     try {
         const response = await new apiRequest("localhost", "8080", "get/role/", "GET");
         const data = await response.getRequest();
@@ -164,6 +160,26 @@ export async function postBookContrib() {
     }
 }
 
+export async function postBookSubject() {
+    try {
+        const currentDiv = document.querySelector("#records");
+        currentDiv.innerHTML = "";
+
+        const form = elementCreator("form", "formBookSubForm", "");
+        
+        const subButton = elementCreator("button", "subBookSub", "submit");
+        subButton.type = "submit";
+
+        const bookList = await getBookList();
+        const subjectList = await getSubjectList();
+
+        form.append(bookList, subjectList, subButton);
+        currentDiv.appendChild(form);
+    }
+    catch (error) {
+        errorHandle(error.message);
+    }
+}
 
 export async function ListBookContrib() {
     try {
@@ -171,10 +187,6 @@ export async function ListBookContrib() {
         currentDiv.innerHTML = "";
 
         const form = elementCreator("form", "formBookContribForm", " ");
-
-        // form.addEventListener("click", function(e) {
-        //     e.preventDefault();
-        // });
 
         const subButton = elementCreator("button", "subBookContribRole", "Submit");
         subButton.type = "submit";

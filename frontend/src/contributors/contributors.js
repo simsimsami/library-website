@@ -14,7 +14,7 @@ export async function getContribs() {
 
         for (const items in data) {
             const card = elementCreator("div", data[items].contributor_id, " ");
-            card.className = "contrib-card";
+            card.setAttribute("class", "grid-container");
 
             const contriTitle = grid(data[items].contributor_title);
             const contriFirstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item

@@ -1,16 +1,23 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import sanitization from '../utility/sanitisation.js';
 const router = express.Router();
 router.use(bodyParser.json());
 import { post_contrib } from '../../database.js';
 
 export default router.post('/', async (req, res) => {
-    const body = req.body;
-    console.log(body);
     try {
-        const response = await post_contrib(body.contributor_first_name, body.contributor_last_name, body.contributor_title)
-        console.log("Post successfully done");
-        res.json(response);
+        const body = req.body;
+        const { contributor_title } = req.body;
+        const { contributor_first_name } = req.body;
+        const { contributor_last_name } = req.body;
+        if (!contributor_title || !contributor_first_name || !contributor_last_name) {
+            res.sendStatus(400);
+        }
+        else {
+            const response = await post_contrib(body.contributor_first_name, body.contributor_last_name, body.contributor_title);
+            res.status(200).json(response);
+        }
     } catch (error) {
         console.log(error.message);
     }

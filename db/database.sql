@@ -112,6 +112,7 @@ ORDER BY
 -- book -> subject_books
 -- subject -> subject_books
 
+-- getting information on who has contributed to what in books
 
 SELECT
     b.book_title,
@@ -129,20 +130,3 @@ INNER JOIN publisher p ON b.publisher_id = p.publisher_id
 
 WHERE b.book_id = 1;
 
-
-book.book_title,
-contributor.contributor_first_name,
-contributor.contributor_last_name,
-contribution_role.contribution_role_title,
-publisher.publisher_name,
-subject.subject_title,
-
-
-
-book
-contributor
-contribution_role
-books_contributor
-publisher
-subject
-subject_books

@@ -29,6 +29,14 @@ Fix get request for books
 - make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
 
 - post request
+- - books
+
+Books needs
+- book_title
+- book_release_date
+- publisher id
+- isbn
+
 - - for subjects
 - - for contributor roles
 - - publishers
