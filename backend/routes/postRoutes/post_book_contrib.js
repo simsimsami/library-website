@@ -15,6 +15,9 @@ export default router.post('/', async (req, res) => {
         if (!book_id || !contributor_id || !contribution_role_id) {
             res.sendStatus(400);
         }
+        else if (book_id === " " || contributor_id === " " || contribution_role_id === " ") {
+            res.sendStatus(400);
+        }
         else {
             const response = await post_bookContrib(body.book_id, body.contributor_id, body.contribution_role_id);
             res.status(200).json(response);

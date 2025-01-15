@@ -12,6 +12,9 @@ export default router.post('/', async (req, res) => {
         if (!subject_title) {
             res.sendStatus(400);
         }
+        else if (subject_title === " ") {
+            res.sendStatus(400);
+        }
         else {
             const response = await post_subject(body.subject_title);
             res.status(200).json(response);

@@ -148,7 +148,7 @@ export async function post_subject(subject_title) {
 
 export async function post_contrib_role(contrib_role_title) {
     try {
-        const text = "INSERT INTO contribution_role (contrib_role_title) VALUES ($1) RETURNING *";
+        const text = "INSERT INTO contribution_role (contribution_role_title) VALUES ($1) RETURNING *";
         const values = [contrib_role_title];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         return (await response).rows;

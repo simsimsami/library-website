@@ -12,6 +12,9 @@ export default router.post('/', async (req, res) => {
         if (!contrib_role_title) {
             res.sendStatus(400);
         } 
+        else if (contrib_role_title === " ") {
+            res.sendStatus(400);
+        }
         else {
             const response = await post_contrib_role(body.contrib_role_title);
             res.status(200).json(response);

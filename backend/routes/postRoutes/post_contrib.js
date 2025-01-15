@@ -16,6 +16,9 @@ export default router.post('/', async (req, res) => {
         if (!contributor_title || !contributor_first_name || !contributor_last_name) {
             res.sendStatus(400);
         }
+        else if (contributor_title === " " || contributor_first_name === " " || contributor_last_name === " ") {
+            res.sendStatus(400);
+        }
         else {
             const response = await post_contrib(body.contributor_first_name, body.contributor_last_name, body.contributor_title);
             res.status(200).json(response);

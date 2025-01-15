@@ -12,6 +12,9 @@ export default router.post('/', async (req, res) => {
         if (!publisher_title) {
             res.sendStatus(400);
         }
+        else if (publisher_title === " ") {
+            res.sendStatus(400);
+        }
         else {
             const response = await post_publisher(body.publisher_title);
             res.status(200).json(response);
