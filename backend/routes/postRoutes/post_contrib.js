@@ -4,6 +4,8 @@ import sanitization from '../utility/sanitisation.js';
 const router = express.Router();
 router.use(bodyParser.json());
 import { post_contrib } from '../../database.js';
+import { errorHandle } from '../../../frontend/src/utility/errorhandle.js';
+
 
 export default router.post('/', async (req, res) => {
     try {
@@ -19,6 +21,6 @@ export default router.post('/', async (req, res) => {
             res.status(200).json(response);
         }
     } catch (error) {
-        console.log(error.message);
+        errorHandle(error);
     }
 });

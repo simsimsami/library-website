@@ -1,7 +1,7 @@
 CREATE DATABASE library_project;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-ALTER SEQUENCE [table]_id_seq RESTART;
+ALTER SEQUENCE [table]_id_seq RESTART [last items id];
 
 -- use "DO $SYNTAX_CHECK$ BEGIN RETURN;" 
 -- -- INSERT SQL here (for SQL checks)

@@ -24,22 +24,20 @@ Fix get request for books
 
 -- able to view contributors and their roles in books
 
+- Post routes
+- - Books [X]
+
 ## What to do next
 
 - make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
 
 - post request
-- - books
+- - for subjects [x]
+- - for contributor roles [x]
+- - publishers [x]
 
-Books needs
-- book_title
-- book_release_date
-- publisher id
-- isbn
-
-- - for subjects
-- - for contributor roles
-- - publishers
+- Need to be able to assign subjects to books
+- - Need to be able to assign multiple contributors to books 
 
 - delete request
 - - contributors
