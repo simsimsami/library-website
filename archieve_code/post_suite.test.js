@@ -1,5 +1,5 @@
 import request from "supertest";
-import Server from "../../../setupServer.js";
+import Server from "../backend/setupServer.js";
 
 describe("Post /bookContrib", () => {
     describe("Sending book_id, contributor_id and contributor_role_id", () => {
