@@ -2,13 +2,13 @@ import { grid } from "../utility/grid.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getSubjectList } from "../subject/subject.js";
-import apiRequest from "../../apiRequest.js";
 import { errorHandle } from "../utility/errorhandle.js";
+import { getRoute } from "../apiSetup.js"
+
 
 export async function getBooks() {
     try {
-        const request = await new apiRequest("localhost", "8080", "/get/book/");
-        const data = await request.getRequest();
+        const data = await getRoute("book");
         
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
@@ -39,8 +39,7 @@ export async function getBookContribs(event) {
 
         const bookId = event.id;
 
-        const response = await new apiRequest("localhost", "8080", `/get/book/${bookId}`);
-        const data = await response.getRequest();
+        const data = await getRoute("book", bookId);
 
         for (const items in data) {
             const card = elementCreator("div", bookId, "");
@@ -62,8 +61,7 @@ export async function getBookContribs(event) {
 
 async function getBookList() {
     try {
-        const request = await new apiRequest("localhost", "8080", "/get/book/");
-        const data = await request.getRequest();
+        const data = await getRoute("book");
         
         const select = document.createElement("select");
         select.name = "Select Book";
@@ -85,8 +83,7 @@ async function getBookList() {
 
 async function getContribList() {
     try {
-        const response = await new apiRequest("localhost", "8080", "/get/contrib/");
-        const data = await response.getRequest();
+        const data = await getRoute("contrib");
 
         const select = document.createElement("select");
         select.name = "Select Contributor";
@@ -109,8 +106,7 @@ async function getContribList() {
 
 export async function getRoleList() {
     try {
-        const response = await new apiRequest("localhost", "8080", "/get/role/");
-        const data = await response.getRequest();
+        const data = await getRoute("role");
 
         const select = document.createElement("select");
         select.name = "Select Contribution Role";

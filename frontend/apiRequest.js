@@ -4,10 +4,6 @@ class apiRequest {
         this.port = port;
         this.path = path;
 
-        this.getRequest();
-        this.postRequest();
-        // this.deleteRequest();
-        // this.putRequest();
     }
 
     async getRequest() {

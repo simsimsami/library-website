@@ -2,12 +2,11 @@ import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import apiRequest from "../../apiRequest.js"
+import { getRoute } from "../apiSetup.js";
 
 export async function getContribs() {
     try {
-        const request = await new apiRequest("localhost", "8080", "/get/contrib/");
-        const data = await request.getRequest();
+        const data = await getRoute("contrib");
 
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";

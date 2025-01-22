@@ -1,11 +1,10 @@
 import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
-import apiRequest from "../../apiRequest.js";
+import { getRoute } from "../apiSetup.js";
 
 export async function getPublishs() {
     try {
-        const request = await new apiRequest("localhost", "8080", "/get/publisher/");
-        const data = await request.getRequest();
+        const data = await getRoute("publisher");
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
 

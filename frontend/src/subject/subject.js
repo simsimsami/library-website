@@ -1,5 +1,6 @@
 import { grid } from "../utility/grid.js";
 import apiRequest from "../../apiRequest.js";
+import { getRoute, postRoute } from "../apiSetup.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { setupSelect } from "../utility/setupSelect.js";
@@ -8,8 +9,7 @@ import { inputText } from "../utility/inputText.js";
 
 export async function getSubjects() {
     try {
-        const request = await new apiRequest("localhost", "8080", "/get/subject/");
-        const data = await request.getRequest();
+        const data = await getRoute("subject");
 
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
@@ -30,8 +30,7 @@ export async function getSubjects() {
 
 export async function getSubjectList() {
     try {
-        const response = await new apiRequest("localhost", "8080", "/get/subject/");
-        const data = await response.getRequest();
+        const data = await getRoute("subject");
 
         const select = document.createElement("select");
         select.name = "Select Subject";
@@ -86,10 +85,10 @@ export async function postSubject() {
                 "subject_title": `${title}`
             };
 
-            console.log(postData);
-            
-            const request = await new apiRequest("localhost", "8080", "/post/subject");
-            const response = await request.postRequest(postData);
+            const request = await postRoute("subject", postData);
+            if (!request.ok) {
+                errorHandle(request);
+            }
         });
 
     } catch (error) {
