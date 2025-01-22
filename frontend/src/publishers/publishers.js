@@ -4,7 +4,7 @@ import apiRequest from "../../apiRequest.js";
 
 export async function getPublishs() {
     try {
-        const request = await new apiRequest("localhost", "8080", "get/publisher/", "GET");
+        const request = await new apiRequest("localhost", "8080", "/get/publisher/");
         const data = await request.getRequest();
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";

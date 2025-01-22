@@ -8,9 +8,9 @@ export default router.get('/:id?', async (req, res) => {
     let book_id = req.params.id;
     if (!book_id) {
         const book = await get_books();
-        res.send(200).json(book);
+        res.status(200).json(book);
     } else {
         const book = await get_book(book_id);
-        res.send(200).json(book);
+        res.status(200).json(book);
     }
 })

@@ -7,7 +7,7 @@ import { errorHandle } from "../utility/errorhandle.js";
 
 export async function getBooks() {
     try {
-        const request = await new apiRequest("localhost", "8080", "get/book/", "GET");
+        const request = await new apiRequest("localhost", "8080", "/get/book/");
         const data = await request.getRequest();
         
         const currentDiv = document.querySelector('#records');
@@ -39,7 +39,7 @@ export async function getBookContribs(event) {
 
         const bookId = event.id;
 
-        const response = await new apiRequest("localhost", "8080", `get/book/${bookId}`, "GET");
+        const response = await new apiRequest("localhost", "8080", `/get/book/${bookId}`);
         const data = await response.getRequest();
 
         for (const items in data) {
@@ -62,7 +62,7 @@ export async function getBookContribs(event) {
 
 async function getBookList() {
     try {
-        const request = await new apiRequest("localhost", "8080", "get/book/", "GET");
+        const request = await new apiRequest("localhost", "8080", "/get/book/");
         const data = await request.getRequest();
         
         const select = document.createElement("select");
@@ -85,7 +85,7 @@ async function getBookList() {
 
 async function getContribList() {
     try {
-        const response = await new apiRequest("localhost", "8080", "get/contrib/", "GET");
+        const response = await new apiRequest("localhost", "8080", "/get/contrib/");
         const data = await response.getRequest();
 
         const select = document.createElement("select");
@@ -109,7 +109,7 @@ async function getContribList() {
 
 export async function getRoleList() {
     try {
-        const response = await new apiRequest("localhost", "8080", "get/role/", "GET");
+        const response = await new apiRequest("localhost", "8080", "/get/role/");
         const data = await response.getRequest();
 
         const select = document.createElement("select");

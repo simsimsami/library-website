@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import sanitization from '../../../archieve_code/utility/sanitisation.js';
 const router = express.Router();
 router.use(bodyParser.json());
 import { post_contrib } from '../../database.js';

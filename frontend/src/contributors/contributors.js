@@ -6,7 +6,7 @@ import apiRequest from "../../apiRequest.js"
 
 export async function getContribs() {
     try {
-        const request = await new apiRequest("localhost", "8080", "get/contrib/", "GET");
+        const request = await new apiRequest("localhost", "8080", "/get/contrib/");
         const data = await request.getRequest();
 
         const currentDiv = document.querySelector('#records');
@@ -37,10 +37,10 @@ export function postContribForm() {
         const firstName = inputText("firstName", "First Name");
         const lastName = inputText("lastName", "Last Name");
 
-        const postButton = elementCreator("button", "post-button", "submit");
+        const postButton = elementCreator("button", "post-contrib-button", "submit");
         postButton.type = "submit";
 
-        const form = elementCreator("form", "formContribForm", " ");
+        const form = elementCreator("form", "formContribForm", "");
 
         form.append(title, firstName, lastName, postButton);
         currentDiv.appendChild(form);
