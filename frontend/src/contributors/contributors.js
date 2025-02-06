@@ -2,7 +2,7 @@ import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import { getRoute } from "../apiSetup.js";
+import { getRoute } from "../apiFrontSetup.js";
 
 export async function getContribs() {
     try {

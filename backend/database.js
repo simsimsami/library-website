@@ -18,8 +18,17 @@ async function getConnection() {
         database: 'library_project',
     });
 
+    const pool = new Pool({ 
+        user: 'postgres',
+        password: '1234',
+        host: 'localhost',
+        port: 5435,
+        database: 'library_project',
+    });
+
     await client.connect();
-    return client;
+    await pool.connect();
+    return pool;
 }
 
 // get routes
@@ -190,10 +199,21 @@ export async function post_contrib(contributor_first_name, contributor_last_name
     }
 }
 
-export async function post_bookContrib(book_id, contrib_id , contriRole_id) {
+export async function post_book_contrib(book_id, contrib_id , contriRole_id) {
     try {
         const text = "INSERT INTO books_contributor (book_id, contributor_id, contribution_role_id) VALUES ($1, $2, $3) RETURNING * ";
         const values = [book_id, contrib_id, contriRole_id];
+        const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
+        return (await response).rows;
+    } catch (e) {
+        errorHandle(e);
+    }
+}
+
+export async function post_book_subject(book_id, subject_id) {
+    try {
+        const text = "INSERT INTO subject_books (book_id, subject_id) VALUES ($1, $2) RETURNING * ";
+        const values = [book_id, subject_id];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         return (await response).rows;
     } catch (e) {

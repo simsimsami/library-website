@@ -6,9 +6,9 @@ import { post_publisher } from '../../database.js';
 import { errorHandle } from '../../../frontend/src/utility/errorhandle.js';
 
 export default router.post('/', async (req, res) => {
+    const body = req.body;
+    const { publisher_title } = req.body;
     try {
-        const body = req.body;
-        const { publisher_title } = req.body;
         if (!publisher_title) {
             res.sendStatus(400);
         }

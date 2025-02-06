@@ -1,4 +1,11 @@
-import { getBooks, ListBookContrib, postBookContrib, postBookSubject, getBookContribs} from './src/books/book.js';
+import { 
+    getBooks, 
+    listBookContrib, 
+    getBookContribs,
+    postBookContrib, 
+    listBookSubject, 
+    postBookSubject, 
+} from './src/books/book.js';
 import { postContrib, getContribs, postContribForm } from './src/contributors/contributors.js';
 import { getSubjects, postSubjectForm, postSubject} from './src/subject/subject.js';
 import { getPublishs } from './src/publishers/publishers.js';
@@ -33,7 +40,7 @@ function createPostButtons() {
     buttonContainer.innerHTML = "";
 
     const bookContrib = buttonTemplate("post-bookContrib", "Assign Books Contribution");
-    const bookSubject = buttonTemplate("post-bookSubject", "Assign Books Subjects");
+    const bookSubject = buttonTemplate("list-bookSubject", "Assign Books Subjects");
     const contrib = buttonTemplate("post-contribs","Enter Contributor Form");
     const pub = buttonTemplate("post-publishers","Post Publishers Form");
     const sub = buttonTemplate("post-subject-form", "Post Subjects Form");
@@ -76,8 +83,10 @@ addGlobalEventListener("click", "#post-subject-form", postSubjectForm);
 addGlobalEventListener("click", "#post-subject", postSubject);
 
 
-addGlobalEventListener("click", "#post-bookContrib", ListBookContrib);
+addGlobalEventListener("click", "#post-bookContrib", listBookContrib);
 addGlobalEventListener("click", "#subBookContribRole", postBookContrib);
+
+addGlobalEventListener("click", "#list-bookSubject", listBookSubject);
 addGlobalEventListener("click", "#post-bookSubject", postBookSubject);
 
 

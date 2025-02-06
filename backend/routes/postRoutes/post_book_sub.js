@@ -2,22 +2,27 @@ import express from 'express';
 import bodyParser from 'body-parser';
 const router = express.Router();
 router.use(bodyParser.json());
-import { post_contrib_role } from '../../database.js';
+import { post_book_subject } from '../../database.js';
 import { errorHandle } from '../../../frontend/src/utility/errorhandle.js';
 
 export default router.post('/', async (req, res) => {
     const body = req.body;
-    const { contrib_role_title } = req.body;
+    const { book_id } = req.body;
+    const { subject_id } = req.body;
+    
     try {
-        if (!contrib_role_title) {
+        if (!book_id || !subject_id) {
             res.sendStatus(400);
-        } 
-        else if (contrib_role_title === " ") {
+            console.log("Nothing is inside ");
+            
+        }
+        else if (book_id === " " || subject_id === " ") {
             res.sendStatus(400);
+            console.log("There is only space");
         }
         else {
-            const response = await post_contrib_role(body.contrib_role_title);
-            res.status(200).json(response);
+            const response = await post_book_subject(body.book_id, body.subject_id);
+            res.status(200);
         }
     } catch (error) {
         errorHandle(error);

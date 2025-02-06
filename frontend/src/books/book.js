@@ -3,7 +3,13 @@ import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getSubjectList } from "../subject/subject.js";
 import { errorHandle } from "../utility/errorhandle.js";
-import { getRoute } from "../apiSetup.js"
+import { getRoute, postRoute } from "../apiFrontSetup.js"
+
+
+export async function getData(parameter) {
+    const data = await getRoute(`${parameter}`);
+    return data;
+}
 
 
 export async function getBooks() {
@@ -22,9 +28,10 @@ export async function getBooks() {
             const isbn = grid(data[items].isbn);
             const pub = grid(data[items].publisher_name);
             const viewButton = elementCreator("button", data[items].book_id, "View Contributors");
+            const subjectList = "Stuff";
             viewButton.setAttribute("class", "view-button");
 
-            card.append(bookTitle, book_release, isbn, pub, viewButton);
+            card.append(bookTitle, book_release, isbn, pub, subjectList, viewButton);
             currentDiv.appendChild(card);
         }
     } catch (error) {
@@ -128,11 +135,6 @@ export async function getRoleList() {
 
 export async function postBookContrib() {
     try {
-        const url = "http://localhost:8080/post/bookContrib";
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Accept", "application/json, text/plain, */*");
-
         const b = document.querySelector("#bookOptions");
         const c = document.querySelector("#contribOptions");
         const r = document.querySelector("#roleOptions");
@@ -141,30 +143,36 @@ export async function postBookContrib() {
         const contrib = c.options[c.selectedIndex].id;
         const role = r.options[r.selectedIndex].id;
 
-        const response = await fetch(url, {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify({
-                book_id: book,
-                contributor_id: contrib,
-                contribution_role_id: role
-            })
-        }).catch(error => errorHandle(error));
-       console.log(contrib,role,book);
+        const postData = {
+            "book_id": `${book}`,
+            "contributor_id": `${contrib}`,
+            "contribution_role_id": `${role}`
+        };
+
+        console.log(postData);
+        
+
+        const request = await postRoute("bookContrib", postData);
+        if (!request.ok) {
+            errorHandle(request);
+        }
+
     } catch (error) {
         errorHandle(error.message);
     }
 }
 
-export async function postBookSubject() {
+export async function listBookSubject() {
     try {
+        console.log("List book subject function ran");
+
         const currentDiv = document.querySelector("#records");
         currentDiv.innerHTML = "";
 
         const form = elementCreator("form", "formBookSubForm", "");
-        
-        const subButton = elementCreator("button", "subBookSub", "submit");
-        subButton.type = "submit";
+
+        const subButton = elementCreator("button", "post-bookSubject", "Submit");
+        subButton.setAttribute("type", "button");
 
         const bookList = await getBookList();
         const subjectList = await getSubjectList();
@@ -177,7 +185,23 @@ export async function postBookSubject() {
     }
 }
 
-export async function ListBookContrib() {
+export async function postBookSubject() {
+    const formEl = document.querySelector("#formBookSubForm");
+    const b = document.querySelector("#bookOptions");
+    const s = document.querySelector("#subjectOptions");
+
+    const bookId = b.options[b.selectedIndex].id;
+    const subjectId = s.options[s.selectedIndex].id;
+
+    const postData = {
+        book_id: bookId,
+        subject_id: subjectId
+    };
+
+    const response = await postRoute("bookSubject", postData).catch(e => console.log(e));
+}
+
+export async function listBookContrib() {
     try {
         const currentDiv = document.querySelector("#records");
         currentDiv.innerHTML = "";
@@ -185,7 +209,7 @@ export async function ListBookContrib() {
         const form = elementCreator("form", "formBookContribForm", " ");
 
         const subButton = elementCreator("button", "subBookContribRole", "Submit");
-        subButton.type = "submit";
+        subButton.type = "button";
 
 
         const contribList = await getContribList();

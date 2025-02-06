@@ -5,8 +5,7 @@
   "description": "Second draft with the project, needing to start from the beginning since it got too complicated for me.",
   "main": "index.js",
   "scripts": {
-    "jest": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --forceExit",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "nodemon server.js",
     "dbstatus": "sudo service postgresql status",
     "17-start": "sudo service postgresql start 17"
@@ -23,6 +22,7 @@
     "supertest": "^7.0.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.4.0",
     "nodemon": "^3.1.7",
     "vitest": "^3.0.2"
   }

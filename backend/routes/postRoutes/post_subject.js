@@ -6,9 +6,9 @@ import { post_subject } from '../../database.js';
 import { errorHandle } from '../../../frontend/src/utility/errorhandle.js';
 
 export default router.post('/', async (req, res) => {
+    const body = req.body;
+    const { subject_title } = req.body;
     try {
-        const body = req.body;
-        const { subject_title } = req.body;
         if (!subject_title) {
             res.sendStatus(400);
         }

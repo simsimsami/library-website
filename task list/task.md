@@ -25,19 +25,27 @@ Fix get request for books
 -- able to view contributors and their roles in books
 
 - Post routes
-- - Books [X]
+- - Books
+- - subjects
+- - books contributions
+- - book subjects
+- - contributors
 
 ## What to do next
 
 - make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
 
 - post request
-- - for subjects [x]
-- - for contributor roles [x]
 - - publishers [x]
 
+Implement post to frontend
+
+Implement adding subjects to books (multi add? might be a good idea)
+
+I need to workout the vitest integration testing
+
 - Need to be able to assign subjects to books
-- - Need to be able to assign multiple contributors to books 
+- - Need to be able to assign multiple contributors to books
 
 - delete request
 - - contributors

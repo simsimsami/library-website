@@ -1,6 +1,5 @@
 import { grid } from "../utility/grid.js";
-import apiRequest from "../../apiRequest.js";
-import { getRoute, postRoute } from "../apiSetup.js";
+import { getRoute, postRoute } from "../apiFrontSetup.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { setupSelect } from "../utility/setupSelect.js";
@@ -51,7 +50,6 @@ export async function getSubjectList() {
 }
 
 // post subject form
-
 export async function postSubjectForm() {
     try {
         const currentDiv = document.querySelector("#records");
@@ -75,21 +73,15 @@ export async function postSubject() {
     try {
 
         const formEl = document.querySelector("#formSubjectForm");
-        formEl.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const formData = new FormData(formEl);
-            
-            const title = formData.get("title");
-            
-            const postData = {
-                "subject_title": `${title}`
-            };
-
-            const request = await postRoute("subject", postData);
-            if (!request.ok) {
-                errorHandle(request);
-            }
-        });
+        const formData = new FormData(formEl);
+        const title = formData.get("title");
+        const postData = {
+            "subject_title": `${title}`
+        };
+        const request = await postRoute("subject", postData);
+        if (!request.ok) {
+            errorHandle(request);
+        }
 
     } catch (error) {
         errorHandle(error);

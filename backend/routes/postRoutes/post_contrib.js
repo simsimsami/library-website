@@ -7,11 +7,11 @@ import { errorHandle } from '../../../frontend/src/utility/errorhandle.js';
 
 
 export default router.post('/', async (req, res) => {
+    const body = req.body;
+    const { contributor_title } = req.body;
+    const { contributor_first_name } = req.body;
+    const { contributor_last_name } = req.body;
     try {
-        const body = req.body;
-        const { contributor_title } = req.body;
-        const { contributor_first_name } = req.body;
-        const { contributor_last_name } = req.body;
         if (!contributor_title || !contributor_first_name || !contributor_last_name) {
             res.sendStatus(400);
         }

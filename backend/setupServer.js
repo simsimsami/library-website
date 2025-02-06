@@ -6,12 +6,13 @@ import getBook from './routes/getRoutes/get_books.js';
 import getRole from './routes/getRoutes/get_roles.js';
 
 import postContrib from './routes/postRoutes/post_contrib.js';
-import postBookContrib from './routes/postRoutes/post_book_contrib.js';
 import postBook from './routes/postRoutes/post_book.js';
 import postSubject from './routes/postRoutes/post_subject.js';
-import postContribRole from './routes/postRoutes/post_contrib_role.js';
 import postPublisher from './routes/postRoutes/post_publisher.js';
 
+import postBookContrib from './routes/postRoutes/post_book_contrib.js';
+import postContribRole from './routes/postRoutes/post_contrib_role.js';
+import postBookSubject from './routes/postRoutes/post_book_sub.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -63,6 +64,7 @@ class Server {
         this.app.use('/post/publisher', postPublisher);
         this.app.use('/post/contrib_role', postContribRole);
         this.app.use('/post/subject', postSubject);
+        this.app.use('/post/bookSubject', postBookSubject)
     }
     getApp() {
         return this.app;
