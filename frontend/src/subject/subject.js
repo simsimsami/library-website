@@ -6,6 +6,16 @@ import { setupSelect } from "../utility/setupSelect.js";
 import { inputText } from "../utility/inputText.js";
 
 
+export async function roleData() {
+    try {
+        const data = await getRoute("role");
+        return data;
+   }
+   catch (e) {
+       errorHandle(e, "roleData function");
+   }
+}
+
 export async function getSubjects() {
     try {
         const data = await getRoute("subject");

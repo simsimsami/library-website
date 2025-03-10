@@ -4,9 +4,20 @@ import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getRoute } from "../apiFrontSetup.js";
 
-export async function getContribs() {
+
+export async function contribData() {
     try {
-        const data = await getRoute("contrib");
+         const data = await getRoute("contrib");
+         return data;
+    }
+    catch (e) {
+        errorHandle(e, "contribData function");
+    }
+}
+
+export async function listContribData() {
+    try {
+        const data = await contribData();
 
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";

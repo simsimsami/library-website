@@ -30,15 +30,16 @@ Fix get request for books
 - - books contributions
 - - book subjects
 - - contributors
+- - publishers
 
 ## What to do next
 
 - make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
 
-- post request
-- - publishers [x]
-
 Implement post to frontend
+
+- Refractor code
+- - Rewrite get routes on the frontend
 
 Implement adding subjects to books (multi add? might be a good idea)
 
@@ -56,8 +57,12 @@ I need to workout the vitest integration testing
 
 ## tasks
 
-- post class
-- post request for contributions
-- post request for books
-- post request for publishers
-- post request for contribution_roles
+delete route
+
+- delete route for contributors.
+- - delete records of contributors -> contributor roles
+- - delete records of contributors -> book_contributors
+
+- delete route for books
+- - delete records of books -> books contributor
+- - delete records of books -> books_subject

@@ -102,6 +102,38 @@ ORDER BY
     b.book_id;
 
 
+SELECT
+    b.book_title, 
+    con.contributor_title, 
+    con.contributor_first_name, 
+    con.contributor_last_name, 
+    con_role.contribution_role_title, 
+    p.publisher_name 
+FROM books_contributor book_con 
+INNER JOIN book b ON b.book_id = book_con.book_id 
+INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id 
+INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id 
+INNER JOIN publisher p ON b.publisher_id = p.publisher_id 
+WHERE b.book_id = $1
+
+select book.book_id, book.book_title, book.isbn, subject.subject_title, publisher.publisher_name, contributor.contributor_first_name, contributor.contributor_last_name
+from subject_books
+inner join subject on subject.subject_id = subject_books.subject_id
+inner join book on book.book_id = subject_books.book_id
+inner join publisher on publisher.publisher_id = book.book_id;
+inner join contributor
+
+
+INNER JOIN publisher ON publisher.publisher_id = book.publisher_id
+INNER JOIN subject ON subject.subject_id = subject_books.subject_id
+INNER JOIN subject_books ON subject_books.book_id = book.book_id
+WHERE book.book_id = 1;
+
+select book.book_title, subject.subject_title
+from subject_books
+inner join subject on subject.subject_id = subject_books.subject_id
+inner join book on book.book_id = subject_books.book_id;
+
 -- book, book_contributors contributor, publisher, subject_books, subject.
 -- book -> book_contributor
 -- contribution_role -> books_contributor

@@ -7,6 +7,7 @@
   "scripts": {
     "test": "vitest",
     "dev": "nodemon server.js",
+    "open db": "sudo su - postgres",
     "dbstatus": "sudo service postgresql status",
     "17-start": "sudo service postgresql start 17"
   },

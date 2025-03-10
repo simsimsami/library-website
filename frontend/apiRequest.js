@@ -24,8 +24,6 @@ class apiRequest {
 
     async postRequest(postData) {
         try {
-
-
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("Accept", "application/json, text/plain, */*");

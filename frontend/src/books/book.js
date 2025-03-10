@@ -1,20 +1,34 @@
 import { grid } from "../utility/grid.js";
+import { contribData } from "../contributors/contributors.js";
+import { roleData } from "../subject/subject.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getSubjectList } from "../subject/subject.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { getRoute, postRoute } from "../apiFrontSetup.js"
 
+function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
 
-export async function getData(parameter) {
-    const data = await getRoute(`${parameter}`);
-    return data;
+async function bookData(id = "") {
+    try {
+        if (isNumber(id) === true || !id) {
+            const data = await getRoute("book",id);
+            return data;
+        }
+        else {
+            errorHandle("bookData. ID input is not valid, is not a number or other");
+            console.log("here is the value: ",id);
+            console.log(isNumber(id));
+        }
+    }
+    catch (e) {
+        errorHandle(e, "bookData function");
+    }
 }
 
-
-export async function getBooks() {
+export async function listBooksData() {
     try {
-        const data = await getRoute("book");
+        const data = await bookData();
         
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
@@ -46,7 +60,7 @@ export async function getBookContribs(event) {
 
         const bookId = event.id;
 
-        const data = await getRoute("book", bookId);
+        const data = await bookData(bookId);
 
         for (const items in data) {
             const card = elementCreator("div", bookId, "");
@@ -68,7 +82,7 @@ export async function getBookContribs(event) {
 
 async function getBookList() {
     try {
-        const data = await getRoute("book");
+        const data = await bookData();
         
         const select = document.createElement("select");
         select.name = "Select Book";
@@ -90,7 +104,7 @@ async function getBookList() {
 
 async function getContribList() {
     try {
-        const data = await getRoute("contrib");
+        const data = await contribData();
 
         const select = document.createElement("select");
         select.name = "Select Contributor";
@@ -113,7 +127,7 @@ async function getContribList() {
 
 export async function getRoleList() {
     try {
-        const data = await getRoute("role");
+        const data = await roleData();
 
         const select = document.createElement("select");
         select.name = "Select Contribution Role";
