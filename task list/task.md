@@ -32,6 +32,11 @@ Fix get request for books
 - - contributors
 - - publishers
 
+Implemented a cascade in the postgresql for
+
+- books -> books contributor
+- books -> books_subject
+
 ## What to do next
 
 - make a route for specific entries : eg, click on 1 contributor, and get a list of books and what roles they are in
@@ -58,6 +63,12 @@ I need to workout the vitest integration testing
 ## tasks
 
 delete route
+
+1) books
+
+- For me to remove a specific book from my database, I will need to
+- - delete the books information in subject_books table
+- - delete the books information in books_contribution table
 
 - delete route for contributors.
 - - delete records of contributors -> contributor roles

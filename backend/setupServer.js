@@ -14,6 +14,8 @@ import postBookContrib from './routes/postRoutes/post_book_contrib.js';
 import postContribRole from './routes/postRoutes/post_contrib_role.js';
 import postBookSubject from './routes/postRoutes/post_book_sub.js';
 
+import deleteContribs from './routes/deleRoutes/delete_contribs.js';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { KEYS } from '../config/keys.js'
@@ -65,6 +67,8 @@ class Server {
         this.app.use('/post/contrib_role', postContribRole);
         this.app.use('/post/subject', postSubject);
         this.app.use('/post/bookSubject', postBookSubject)
+
+        this.app.use('/delete/contrib', deleteContribs)
     }
     getApp() {
         return this.app;

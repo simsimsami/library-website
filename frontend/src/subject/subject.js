@@ -5,20 +5,28 @@ import { elementCreator } from "../utility/elementCreator.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { inputText } from "../utility/inputText.js";
 
+function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
 
-export async function roleData() {
+async function subjectData(id = "") {
     try {
-        const data = await getRoute("role");
-        return data;
-   }
-   catch (e) {
-       errorHandle(e, "roleData function");
-   }
+        if (isNumber(id) === true || !id) {
+            const data = await getRoute("subject", id);
+            return data;
+        }
+        else {
+            errorHandle("subjectData. ID input is not valid, is not a number or other");
+            console.log("here is the value: ",id);
+            console.log(isNumber(id));
+        }
+    }
+    catch (e) {
+        errorHandle(e, "subjectData function");
+    }
 }
 
 export async function getSubjects() {
     try {
-        const data = await getRoute("subject");
+        const data = await subjectData();
 
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
@@ -39,7 +47,7 @@ export async function getSubjects() {
 
 export async function getSubjectList() {
     try {
-        const data = await getRoute("subject");
+        const data = await subjectData();
 
         const select = document.createElement("select");
         select.name = "Select Subject";

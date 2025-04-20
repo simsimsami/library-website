@@ -1,6 +1,6 @@
 import { grid } from "../utility/grid.js";
 import { contribData } from "../contributors/contributors.js";
-import { roleData } from "../subject/subject.js";
+import { roleData } from "../roles/role.js";
 import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getSubjectList } from "../subject/subject.js";
@@ -162,9 +162,6 @@ export async function postBookContrib() {
             "contributor_id": `${contrib}`,
             "contribution_role_id": `${role}`
         };
-
-        console.log(postData);
-        
 
         const request = await postRoute("bookContrib", postData);
         if (!request.ok) {

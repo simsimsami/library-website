@@ -70,9 +70,9 @@ CREATE TABLE books_contributor (
     book_id INT NOT NULL, 
     contributor_id UUID NOT NULL,
     contribution_role_id INT NOT NULL,
-    FOREIGN KEY (book_id) REFERENCES book(book_id),
-    FOREIGN KEY (contributor_id) REFERENCES contributor(contributor_id),
-    FOREIGN KEY (contribution_role_id) REFERENCES contribution_role(contribution_role_id)
+    FOREIGN KEY (book_id) REFERENCES book(book_id) on delete cascade,
+    FOREIGN KEY (contributor_id) REFERENCES contributor(contributor_id) on delete cascade,
+    FOREIGN KEY (contribution_role_id) REFERENCES contribution_role(contribution_role_id) on delete cascade
 );
 
 END; $SYNTAX_CHECK$;
@@ -81,8 +81,14 @@ DO $SYNTAX_CHECK$ BEGIN RETURN;
 CREATE TABLE subject_books (
     book_id INT NOT NULL,
     subject_id INT NOT NULL,
-    FOREIGN KEY (book_id) REFERENCES book(book_id),
-    FOREIGN KEY (subject_id) REFERENCES subject(subject_id)
+    FOREIGN KEY (book_id) REFERENCES book(book_id) on delete cascade,
+    FOREIGN KEY (subject_id) REFERENCES subject(subject_id) on delete cascade
+);
+
+END; $SYNTAX_CHECK$;
+
+DO $SYNTAX_CHECK$ BEGIN RETURN;
+CREATE TABLE book_publishers (
 );
 
 END; $SYNTAX_CHECK$;
@@ -162,3 +168,24 @@ INNER JOIN publisher p ON b.publisher_id = p.publisher_id
 
 WHERE b.book_id = 1;
 
+
+-- missed genre/subject
+
+SELECT 
+b.book_title, 
+con.contributor_title, 
+con.contributor_first_name, 
+con.contributor_last_name, 
+con_role.contribution_role_title,
+p.publisher_name,
+s.subject_title
+
+FROM books_contributor book_con 
+INNER JOIN book b ON b.book_id = book_con.book_id 
+INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id 
+INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id 
+
+INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id
+INNER JOIN subject s ON s.subject_id = sub_books.subject_id
+INNER JOIN publisher p ON b.publisher_id = p.publisher_id 
+WHERE b.book_id = 1;

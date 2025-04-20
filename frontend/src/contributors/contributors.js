@@ -2,7 +2,7 @@ import { grid } from "../utility/grid.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { inputText } from "../utility/inputText.js";
 import { elementCreator } from "../utility/elementCreator.js";
-import { getRoute } from "../apiFrontSetup.js";
+import { deleteRoute, getRoute, postRoute } from "../apiFrontSetup.js";
 
 
 export async function contribData() {
@@ -21,16 +21,20 @@ export async function listContribData() {
 
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
-
+        
+        
         for (const items in data) {
             const card = elementCreator("div", data[items].contributor_id, " ");
             card.setAttribute("class", "grid-container");
-
+            
             const contriTitle = grid(data[items].contributor_title);
             const contriFirstName = grid(data[items].contributor_first_name); //call function, make div, class-grid-item
             const contriLastName = grid(data[items].contributor_last_name);
+            
+            const delButton = elementCreator("button", data[items].contributor_id, "Delete");
+            delButton.setAttribute("class", "contribDeleteButton");
 
-            card.append(contriTitle, contriFirstName, contriLastName);
+            card.append(contriTitle, contriFirstName, contriLastName, delButton);
             currentDiv.appendChild(card);
         }
     } catch (error) {
@@ -61,10 +65,6 @@ export function postContribForm() {
 
 export async function postContrib() {
     try {
-        const url = "http://localhost:8080/post/contrib/";
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Accept", "application/json, text/plain, */*");
 
         const formEl = document.querySelector('#formContribForm');
         const formData = new FormData(formEl);
@@ -73,16 +73,33 @@ export async function postContrib() {
         const firstName = formData.get("firstName");
         const lastName = formData.get("lastName");
 
-        const response = await fetch(url, {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify({
-                contributor_first_name: firstName,
-                contributor_last_name: lastName,
-                contributor_title: title
-            }),
-        }).catch(error => errorHandle(error));
+        const postData = {
+            "contributor_first_name": `${firstName}`,
+            "contributor_last_name": `${lastName}`,
+            "contributor_title": `${title}`
+        };
+
+        const request = await postRoute("contrib", postData);
+        if (!request.ok) {
+            errorHandle(request)
+        }
     } catch (error) {
         errorHandle(error.message);
+    }
+}
+
+// implementing delete routes... no fucking clue how I am going to do that
+
+export async function deleteContrib(event) {
+    try {
+        const contribId = event.id;
+
+        const request = await deleteRoute("contrib", contribId);
+        if (!request.ok) {
+            errorHandle(request);
+        }
+                
+    } catch (error) {
+        errorHandle(error);
     }
 }

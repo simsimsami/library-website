@@ -9,7 +9,8 @@
     "dev": "nodemon server.js",
     "open db": "sudo su - postgres",
     "dbstatus": "sudo service postgresql status",
-    "17-start": "sudo service postgresql start 17"
+    "17-start": "sudo service postgresql start 17",
+    "17-stop": "sudo service postgresql stop 17"
   },
   "author": "sami hamdan",
   "license": "ISC",
