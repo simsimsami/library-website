@@ -9,6 +9,7 @@ import {
 import { postContrib, listContribData, postContribForm, deleteContrib } from './src/contributors/contributors.js';
 import { getSubjects, postSubjectForm, postSubject} from './src/subject/subject.js';
 import { getPublishs } from './src/publishers/publishers.js';
+import { listRoleData, deleteContribRole } from './src/roles/role.js';
 
 
 function buttonTemplate(id, innerHTML) {
@@ -29,7 +30,8 @@ function createGetButtons() {
     const pub = buttonTemplate("get-publishers", "Get Publishers");
     const sub = buttonTemplate("get-subject", "Get Subjects");
     const book = buttonTemplate("get-books", "Get Books");
-    buttonContainer.append(contrib, pub, sub, book);
+    const role = buttonTemplate("get-roles", "Get Roles");
+    buttonContainer.append(contrib, role, pub, sub, book);
 }
 
 function createPostButtons() {
@@ -69,6 +71,7 @@ addGlobalEventListener("click", "#postButtons", createPostButtons)
 
 
 addGlobalEventListener("click", "#get-contribs", listContribData);
+addGlobalEventListener("click", "#get-roles", listRoleData)
 addGlobalEventListener("click", "#get-books", listBooksData);
 addGlobalEventListener("click", "#get-subject", getSubjects);
 addGlobalEventListener("click", "#get-publishers", getPublishs);
@@ -90,6 +93,8 @@ addGlobalEventListener("click", "#list-bookSubject", listBookSubject);
 addGlobalEventListener("click", "#post-bookSubject", postBookSubject);
 
 addGlobalEventListener("click", ".contribDeleteButton", deleteContrib)
+addGlobalEventListener("click", ".contribRoleDeleteButton", deleteContribRole)
+
 
 
 

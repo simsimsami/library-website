@@ -30,6 +30,8 @@ export default router.post('/', async (req, res) => {
         else {
             const response = await post_book_contrib(body.book_id, body.contributor_id, body.contribution_role_id);
             res.status(200).json(response);
+            console.log("Post book contrib successful: ", body.book_id, body.contributor_id, body.contribution_role_id);
+            
         }
     } catch (error) {
         errorHandle(error);

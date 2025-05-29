@@ -134,17 +134,30 @@ export async function get_books() {
 export async function get_book(book_id) {
     try {
         const text = 
-        'SELECT b.book_title, s.subject_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title, p.publisher_name ' 
-        + 'FROM books_contributor book_con INNER JOIN book b ON b.book_id = book_con.book_id '
-        + 'INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id '
-        + 'INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id '
-        + 'INNER JOIN subject s ON s.subject_id = sub_books.subject_id '
-        + 'INNER JOIN publisher p ON b.publisher_id = p.publisher_id WHERE b.book_id = $1';
+        'SELECT b.book_title, s.subject_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title, p.publisher_name FROM books_contributor book_con INNER JOIN book b ON b.book_id = book_con.book_id INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id INNER JOIN subject s ON s.subject_id = sub_books.subject_id INNER JOIN publisher p ON b.publisher_id = p.publisher_id WHERE b.book_id = $1';
+
+        const text2 = 
+        'SELECT b.book_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title FROM books_contributor books_con INNER JOIN book b ON b.book_id = books_con.book_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = books_con.contribution_role_id INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id WHERE b.book_id = $1';
+
+        const values = [book_id];
+        const response = (await getConnection()).query(text2, values).catch(e => errorHandle(e));
+        
+        return (await response).rows;
+    } catch (e) {
+        errorHandle(e);
+    }
+}
+
+// View contributors that have credit for specific books
+
+export async function get_books_contributor(book_id) {
+    try {
+        const text = 'select * from books_contributor where book_id = $1';
         const values = [book_id];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         
         return (await response).rows;
-    } catch (e) {
+    } catch(e) {
         errorHandle(e);
     }
 }
@@ -245,6 +258,18 @@ export async function delete_contrib(contrib_id) {
     try {
         const text = "DELETE from contributor where contributor_id = $1";
         const values = [contrib_id];
+        const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
+        return (await response).rows;
+    }
+    catch (e) {
+        errorHandle(e);
+    }
+}
+
+export async function delete_contrib_role(contrib_role_title_id) {
+    try {
+        const text = "DELETE from contribution_role where contribution_role_id = $1";
+        const values = [contrib_role_title_id];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         return (await response).rows;
     }

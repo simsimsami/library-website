@@ -62,6 +62,29 @@ I need to workout the vitest integration testing
 
 ## tasks
 
+flesh out tests for
+
+- get
+- - book - If thing doesnt exist
+- - contributors (similar to books)
+- - subject
+- - contributor role
+- - book contributor
+
+- posts
+- - books
+- - contributors
+- - subject
+- - contributor roles
+- - book_contributor
+
+- delete
+- - books
+- - contributor
+- - subject
+- - contributors roles
+- - book_contributor
+
 delete route
 
 1) books
@@ -77,3 +100,7 @@ delete route
 - delete route for books
 - - delete records of books -> books contributor
 - - delete records of books -> books_subject
+
+A search function?
+
+- No idea what the first step will be.

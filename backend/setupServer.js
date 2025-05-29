@@ -1,11 +1,12 @@
 import express from 'express';
+
+
 import getContrib from './routes/getRoutes/get_contribs.js';
-import getPublish from './routes/getRoutes/get_publishers.js';
-import getSubject from './routes/getRoutes/get_subject.js';
 import getBook from './routes/getRoutes/get_books.js';
 import getRole from './routes/getRoutes/get_roles.js';
+import getPublish from './routes/getRoutes/get_publishers.js';
+import getSubject from './routes/getRoutes/get_subject.js';
 
-import postContrib from './routes/postRoutes/post_contrib.js';
 import postBook from './routes/postRoutes/post_book.js';
 import postSubject from './routes/postRoutes/post_subject.js';
 import postPublisher from './routes/postRoutes/post_publisher.js';
@@ -13,8 +14,12 @@ import postPublisher from './routes/postRoutes/post_publisher.js';
 import postBookContrib from './routes/postRoutes/post_book_contrib.js';
 import postContribRole from './routes/postRoutes/post_contrib_role.js';
 import postBookSubject from './routes/postRoutes/post_book_sub.js';
+import postContrib from './routes/postRoutes/post_contrib.js';
 
 import deleteContribs from './routes/deleRoutes/delete_contribs.js';
+import deleteContribsRole from './routes/deleRoutes/delete_contrib_role.js';
+import deleteBook from './routes/deleRoutes/delete_book.js';
+
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -69,6 +74,8 @@ class Server {
         this.app.use('/post/bookSubject', postBookSubject)
 
         this.app.use('/delete/contrib', deleteContribs)
+        this.app.use('/delete/role', deleteContribsRole)
+        this.app.use('/delete/book', deleteBook);
     }
     getApp() {
         return this.app;

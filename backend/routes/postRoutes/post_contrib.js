@@ -21,6 +21,8 @@ export default router.post('/', async (req, res) => {
         else {
             const response = await post_contrib(body.contributor_first_name, body.contributor_last_name, body.contributor_title);
             res.status(200).json(response);
+            console.log("Post contrib successful: ", body.contributor_first_name, body.contributor_last_name, body.contributor_title);
+            
         }
     } catch (error) {
         errorHandle(error);

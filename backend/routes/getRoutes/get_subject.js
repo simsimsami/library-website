@@ -6,9 +6,9 @@ export default router.get('/:id?', async (req, res) => {
     let sub_id = req.params.id;
     if (!sub_id) {
         const subject = await get_subjects();
-        res.json(subject);
+        res.status(200).json(subject);
     } else {
         const subject = await get_subject(sub_id);
-        res.json(subject);
+        res.status(200).json(subject);
     }
 });

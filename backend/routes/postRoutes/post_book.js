@@ -21,6 +21,8 @@ export default router.post('/', async (req, res) => {
         else {
             const response = await post_book(body.book_title, body.book_release_date, body.publisher_id, body.isbn);
             res.status(200).json(response);
+            console.log("Post book successful: ", body.book_title, body.book_release_date, body.publisher_id, body.isbn);
+            
         }
     } catch (error) {
         errorHandle(error);

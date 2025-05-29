@@ -189,3 +189,25 @@ INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id
 INNER JOIN subject s ON s.subject_id = sub_books.subject_id
 INNER JOIN publisher p ON b.publisher_id = p.publisher_id 
 WHERE b.book_id = 1;
+
+
+
+-- fixing query
+
+SELECT b.book_title, s.subject_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title, 
+p.publisher_name FROM books_contributor book_con 
+INNER JOIN book b ON b.book_id = book_con.book_id 
+INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id 
+INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id 
+INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id 
+INNER JOIN subject s ON s.subject_id = sub_books.subject_id 
+INNER JOIN publisher p ON b.publisher_id = p.publisher_id WHERE b.book_id = 1;
+
+-- edit version - incase of fuck up 
+
+SELECT b.book_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title
+FROM books_contributor books_con
+INNER JOIN book b ON b.book_id = books_con.book_id
+INNER JOIN contribution_role con_role ON con_role.contribution_role_id = books_con.contribution_role_id
+INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id
+WHERE b.book_id = 1;

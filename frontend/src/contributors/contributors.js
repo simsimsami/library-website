@@ -88,8 +88,6 @@ export async function postContrib() {
     }
 }
 
-// implementing delete routes... no fucking clue how I am going to do that
-
 export async function deleteContrib(event) {
     try {
         const contribId = event.id;

@@ -17,7 +17,9 @@ export default router.post('/', async (req, res) => {
         }
         else {
             const response = await post_subject(body.subject_title);
-            res.status(200);
+            res.status(200).json(response);
+            console.log("Post subject successful: ", body.subject_title);
+            
         }
     } catch (error) {
         errorHandle(error);

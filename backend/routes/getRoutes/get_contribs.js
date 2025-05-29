@@ -8,10 +8,10 @@ export default router.get('/:id?', async (req, res) => {
     let contrib_id = req.params.id;
     if (!contrib_id) {
         const contrib = await get_contribs();
-        res.json(contrib);
+        res.status(200).json(contrib);
     } else {
         const contrib = await get_contrib(contrib_id);
-        res.json(contrib);
+        res.status(200).json(contrib);
 
     }
 })

@@ -7,19 +7,20 @@ import { getSubjectList } from "../subject/subject.js";
 import { errorHandle } from "../utility/errorhandle.js";
 import { getRoute, postRoute } from "../apiFrontSetup.js"
 
-function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
+// function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
 
-async function bookData(id = "") {
+async function bookData(id) {
     try {
-        if (isNumber(id) === true || !id) {
-            const data = await getRoute("book",id);
-            return data;
-        }
-        else {
-            errorHandle("bookData. ID input is not valid, is not a number or other");
-            console.log("here is the value: ",id);
-            console.log(isNumber(id));
-        }
+        const data = await getRoute("book",id);
+        return data;
+        // if (isNumber(id) === true) {
+            
+        // }
+        // else {
+        //     errorHandle("bookData. ID input is not valid, is not a number or other");
+        //     console.log("here is the value: ",id);
+        //     console.log(isNumber(id));
+        // }
     }
     catch (e) {
         errorHandle(e, "bookData function");
@@ -58,9 +59,15 @@ export async function getBookContribs(event) {
         const currentDiv = document.querySelector("#records");
         currentDiv.innerHTML = "";
 
+        
+        
         const bookId = event.id;
+        console.log("Function getBookContribs called, bookid: ", bookId);
 
         const data = await bookData(bookId);
+
+        console.log(data);
+        
 
         for (const items in data) {
             const card = elementCreator("div", bookId, "");

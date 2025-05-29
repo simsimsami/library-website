@@ -22,7 +22,9 @@ export default router.post('/', async (req, res) => {
         }
         else {
             const response = await post_book_subject(body.book_id, body.subject_id);
-            res.status(200);
+            res.status(200).json(response);
+            console.log("Post book subject successful: ", body.book_id, body.subject_id);
+
         }
     } catch (error) {
         errorHandle(error);
