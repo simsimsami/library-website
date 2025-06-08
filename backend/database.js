@@ -277,3 +277,15 @@ export async function delete_contrib_role(contrib_role_title_id) {
         errorHandle(e);
     }
 }
+
+export async function delete_publisher(publisher_id) {
+    try {
+        const text = "DELETE from publisher where publisher_id = $1";
+        const values = [publisher_id];
+        const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
+        return (await response).rows;
+    }
+    catch (e) {
+        errorHandle(e);
+    }
+}

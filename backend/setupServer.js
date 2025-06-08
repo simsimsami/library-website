@@ -19,6 +19,7 @@ import postContrib from './routes/postRoutes/post_contrib.js';
 import deleteContribs from './routes/deleRoutes/delete_contribs.js';
 import deleteContribsRole from './routes/deleRoutes/delete_contrib_role.js';
 import deleteBook from './routes/deleRoutes/delete_book.js';
+import deletePublisher from './routes/deleRoutes/delete_publisher.js';
 
 
 import path from 'path';
@@ -76,6 +77,7 @@ class Server {
         this.app.use('/delete/contrib', deleteContribs)
         this.app.use('/delete/role', deleteContribsRole)
         this.app.use('/delete/book', deleteBook);
+        this.app.use('/delete/publisher', deletePublisher)
     }
     getApp() {
         return this.app;

@@ -54,10 +54,10 @@ I need to workout the vitest integration testing
 - - Need to be able to assign multiple contributors to books
 
 - delete request
-- - contributors
-- - contributor roles
-- - books
+- - contributors [x]
+- - contributor roles [x]
 - - publishers
+- - books
 - put request (edit and etc)
 
 ## tasks

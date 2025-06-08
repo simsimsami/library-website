@@ -42,7 +42,13 @@ export async function deleteRoute(route, id) {
     else if (!route) {
         throw new Error('No Parameter Input for deleteRoute');
     }
-    const request = await new apiRequest("localhost", "8080", `/delete/${route}/`);
+
+    console.log("apiFront, deleteRoute route: ", route);
+    console.log("apiFront, deleteRoute id: ", id);
+
+    
+
+    const request = await new apiRequest("localhost", "8080",`/delete/${route}/`);
     const response = await request.deleteRequest(id);
     if (response.ok) {
         return response.status(200);

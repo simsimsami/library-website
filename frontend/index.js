@@ -8,7 +8,7 @@ import {
 } from './src/books/book.js';
 import { postContrib, listContribData, postContribForm, deleteContrib } from './src/contributors/contributors.js';
 import { getSubjects, postSubjectForm, postSubject} from './src/subject/subject.js';
-import { getPublishs } from './src/publishers/publishers.js';
+import { getPublishs, deletePublisher } from './src/publishers/publishers.js';
 import { listRoleData, deleteContribRole } from './src/roles/role.js';
 
 
@@ -94,6 +94,7 @@ addGlobalEventListener("click", "#post-bookSubject", postBookSubject);
 
 addGlobalEventListener("click", ".contribDeleteButton", deleteContrib)
 addGlobalEventListener("click", ".contribRoleDeleteButton", deleteContribRole)
+addGlobalEventListener("click", ".publisherDeleteButton", deletePublisher)
 
 
 
