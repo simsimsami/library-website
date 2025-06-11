@@ -13,14 +13,6 @@ async function bookData(id) {
     try {
         const data = await getRoute("book",id);
         return data;
-        // if (isNumber(id) === true) {
-            
-        // }
-        // else {
-        //     errorHandle("bookData. ID input is not valid, is not a number or other");
-        //     console.log("here is the value: ",id);
-        //     console.log(isNumber(id));
-        // }
     }
     catch (e) {
         errorHandle(e, "bookData function");
@@ -35,6 +27,7 @@ export async function listBooksData() {
         currentDiv.innerHTML = "";
 
         for (const items in data) {
+            
             const card = elementCreator("div", data[items].book_id, "");
             card.setAttribute("class", "grid-container");
 

@@ -122,7 +122,7 @@ export async function get_contrib_role(role_id) {
 // I want to show all relevant information on these books. title, release date, isbn and publisher
 export async function get_books() {
     try {
-        const text = 'SELECT b.book_id, b.book_title, p.publisher_name, b.book_release_date, b.isbn from book b INNER JOIN publisher p ON b.publisher_id = p.publisher_id ORDER BY b.book_id';
+        const text = `SELECT * FROM book`
         const response = (await getConnection()).query(text).catch(e => errorHandle(e));
         return (await response).rows;
     } catch (e) {
@@ -130,17 +130,26 @@ export async function get_books() {
     }
 }
 
+// subject_book call
+
 // I want to show relevant details when showing a specific book. Its genre, contributors, publishers.
 export async function get_book(book_id) {
     try {
-        const text = 
-        'SELECT b.book_title, s.subject_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title, p.publisher_name FROM books_contributor book_con INNER JOIN book b ON b.book_id = book_con.book_id INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_con.contribution_role_id INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id INNER JOIN subject s ON s.subject_id = sub_books.subject_id INNER JOIN publisher p ON b.publisher_id = p.publisher_id WHERE b.book_id = $1';
 
-        const text2 = 
-        'SELECT b.book_title, con.contributor_title, con.contributor_first_name, con.contributor_last_name, con_role.contribution_role_title FROM books_contributor books_con INNER JOIN book b ON b.book_id = books_con.book_id INNER JOIN contribution_role con_role ON con_role.contribution_role_id = books_con.contribution_role_id INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id WHERE b.book_id = $1';
+        const text = `SELECT
+        b.book_title,
+        b.created_at,
+        con.contributor_title,
+        con.contributor_first_name,
+        con.contributor_last_name
+        
+        FROM book b
+        INNER JOIN books_contributor book_con ON book_con.book_id = b.book_id
+        INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id
+        WHERE b.book_id = $1;`
 
         const values = [book_id];
-        const response = (await getConnection()).query(text2, values).catch(e => errorHandle(e));
+        const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         
         return (await response).rows;
     } catch (e) {
@@ -282,6 +291,18 @@ export async function delete_publisher(publisher_id) {
     try {
         const text = "DELETE from publisher where publisher_id = $1";
         const values = [publisher_id];
+        const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
+        return (await response).rows;
+    }
+    catch (e) {
+        errorHandle(e);
+    }
+}
+
+export async function delete_book_contrib(contributor_id) {
+    try {
+        const text = "DELETE from books_contributor WHERE contributor_id = $1";
+        const values = [contributor_id];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));
         return (await response).rows;
     }

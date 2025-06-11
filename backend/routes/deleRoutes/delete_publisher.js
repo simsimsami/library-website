@@ -10,9 +10,13 @@ export default router.delete('/:publisher_id', async (req, res) => {
     try {
         if (!publisher_id) {
             res.sendStatus(400);
+            console.log(publisher_id);
+            console.log("publisher id is !publisher_id: ", publisher_id);
+            
         }
         else if (publisher_id === " ") {
             res.sendStatus(400);
+            console.log("publisher id == ' ', ",publisher_id);
         }
         else {
             const response = await delete_publisher(publisher_id);

@@ -20,6 +20,7 @@ import deleteContribs from './routes/deleRoutes/delete_contribs.js';
 import deleteContribsRole from './routes/deleRoutes/delete_contrib_role.js';
 import deleteBook from './routes/deleRoutes/delete_book.js';
 import deletePublisher from './routes/deleRoutes/delete_publisher.js';
+import deleteBookContrib from './routes/deleRoutes/delete_book_contrib.js';
 
 
 import path from 'path';
@@ -78,6 +79,7 @@ class Server {
         this.app.use('/delete/role', deleteContribsRole)
         this.app.use('/delete/book', deleteBook);
         this.app.use('/delete/publisher', deletePublisher)
+        this.app.use('/delete/bookContrib', deleteBookContrib)
     }
     getApp() {
         return this.app;

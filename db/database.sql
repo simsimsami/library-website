@@ -43,7 +43,7 @@ CREATE TABLE book (
     PRIMARY KEY (book_id),
     CONSTRAINT fk_publisher
         FOREIGN KEY(publisher_id)
-            REFERENCES publisher(publisher_id)
+            REFERENCES publisher(publisher_id) on delete cascade
 );
 END; $SYNTAX_CHECK$;
 
@@ -177,7 +177,6 @@ con.contributor_title,
 con.contributor_first_name, 
 con.contributor_last_name, 
 con_role.contribution_role_title,
-p.publisher_name,
 s.subject_title
 
 FROM books_contributor book_con 
@@ -187,7 +186,6 @@ INNER JOIN contribution_role con_role ON con_role.contribution_role_id = book_co
 
 INNER JOIN subject_books sub_books ON sub_books.book_id = b.book_id
 INNER JOIN subject s ON s.subject_id = sub_books.subject_id
-INNER JOIN publisher p ON b.publisher_id = p.publisher_id 
 WHERE b.book_id = 1;
 
 
@@ -211,3 +209,15 @@ INNER JOIN book b ON b.book_id = books_con.book_id
 INNER JOIN contribution_role con_role ON con_role.contribution_role_id = books_con.contribution_role_id
 INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id
 WHERE b.book_id = 1;
+
+
+SELECT
+b.book_title,
+sub.subject_title,
+b.created_at,
+p.publisher_name
+
+FROM book b
+INNER JOIN subject_books sub_book ON sub_book.book_id = b.book_id
+INNER JOIN subject sub ON sub.subject_id = sub_book.subject_id
+INNER JOIN publisher p ON p.publisher_id = b.book_id;

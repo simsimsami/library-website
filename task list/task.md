@@ -53,10 +53,19 @@ I need to workout the vitest integration testing
 - Need to be able to assign subjects to books
 - - Need to be able to assign multiple contributors to books
 
+--------------------------------------
+
+- Get subject list from books
+- delete specific contributor from books contributor
+
+--------------------------------------
+
 - delete request
 - - contributors [x]
 - - contributor roles [x]
-- - publishers
+- - publishers [x]
+- - subject book (delete subjects from books)
+- - subject
 - - books
 - put request (edit and etc)
 
