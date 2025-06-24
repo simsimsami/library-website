@@ -60,10 +60,15 @@ I need to workout the vitest integration testing
 
 --------------------------------------
 
+High priority
+
+- Fix integration terminal in vs code
+- fix nodemon (global), server doesnt restart after saving
+
 - delete request
 - - contributors [x]
 - - contributor roles [x]
-- - publishers [x]
+- - publishers [x] [fix the database]
 - - subject book (delete subjects from books)
 - - subject
 - - books

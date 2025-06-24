@@ -122,8 +122,19 @@ export async function get_contrib_role(role_id) {
 // I want to show all relevant information on these books. title, release date, isbn and publisher
 export async function get_books() {
     try {
+        const text3 = `select b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name, STRING_AGG(s.subject_title, 
+        ', '
+        ORDER BY
+        b.book_id
+        ) subject_name
+         from book b
+         INNER JOIN publisher p ON p.publisher_id = b.publisher_id
+         INNER JOIN subject_books sb ON sb.book_id = b.book_id
+         INNER JOIN subject s ON s.subject_id = sb.subject_id
+         GROUP BY b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name`
+        const text2 = 'select b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name from book b INNER JOIN publisher p ON p.publisher_id = b.publisher_id'
         const text = `SELECT * FROM book`
-        const response = (await getConnection()).query(text).catch(e => errorHandle(e));
+        const response = (await getConnection()).query(text3).catch(e => errorHandle(e));
         return (await response).rows;
     } catch (e) {
         errorHandle(e);

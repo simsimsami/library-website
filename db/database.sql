@@ -211,13 +211,27 @@ INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id
 WHERE b.book_id = 1;
 
 
-SELECT
-b.book_title,
-sub.subject_title,
-b.created_at,
-p.publisher_name
+select b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name, s.subject_title
+from book b
+INNER JOIN publisher p ON p.publisher_id = b.publisher_id
+INNER JOIN subject_books sb ON sb.book_id = b.book_id
+INNER JOIN subject s ON s.subject_id = sb.subject_id
 
-FROM book b
-INNER JOIN subject_books sub_book ON sub_book.book_id = b.book_id
-INNER JOIN subject sub ON sub.subject_id = sub_book.subject_id
-INNER JOIN publisher p ON p.publisher_id = b.book_id;
+
+
+
+-- list book subjects
+
+select b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name, STRING_AGG(
+    s.subject_title, 
+    ', '
+    ORDER BY
+    b.book_id
+    ) subject_name
+
+from book b
+INNER JOIN publisher p ON p.publisher_id = b.publisher_id
+INNER JOIN subject_books sb ON sb.book_id = b.book_id
+INNER JOIN subject s ON s.subject_id = sb.subject_id
+GROUP BY b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name
+

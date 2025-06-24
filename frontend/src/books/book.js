@@ -27,7 +27,6 @@ export async function listBooksData() {
         currentDiv.innerHTML = "";
 
         for (const items in data) {
-            
             const card = elementCreator("div", data[items].book_id, "");
             card.setAttribute("class", "grid-container");
 
@@ -36,7 +35,7 @@ export async function listBooksData() {
             const isbn = grid(data[items].isbn);
             const pub = grid(data[items].publisher_name);
             const viewButton = elementCreator("button", data[items].book_id, "View Contributors");
-            const subjectList = "Stuff";
+            const subjectList = grid(data[items].subject_name)
             viewButton.setAttribute("class", "view-button");
 
             card.append(bookTitle, book_release, isbn, pub, subjectList, viewButton);
