@@ -235,3 +235,21 @@ INNER JOIN subject_books sb ON sb.book_id = b.book_id
 INNER JOIN subject s ON s.subject_id = sb.subject_id
 GROUP BY b.book_id, b.book_title, b.book_release_date, b.isbn, b.created_at, p.publisher_name
 
+
+SELECT
+        b.book_title,
+        b.created_at,
+        con.contributor_title,
+        con.contributor_first_name,
+        con.contributor_last_name,
+        role.contribution_role_title
+        
+        FROM book b
+        INNER JOIN books_contributor books_con ON books_con.book_id = b.book_id
+        INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id
+        INNER JOIN contribution_role role ON role.contribution_role_id = books_con.contribution_role_id
+        WHERE b.book_id = $1;
+
+
+books_contributor
+contribution_role

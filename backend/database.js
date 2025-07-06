@@ -148,16 +148,20 @@ export async function get_book(book_id) {
     try {
 
         const text = `SELECT
+        b.book_id,
+        con.contributor_id,
         b.book_title,
         b.created_at,
         con.contributor_title,
         con.contributor_first_name,
-        con.contributor_last_name
+        con.contributor_last_name,
+        role.contribution_role_title
         
         FROM book b
-        INNER JOIN books_contributor book_con ON book_con.book_id = b.book_id
-        INNER JOIN contributor con ON con.contributor_id = book_con.contributor_id
-        WHERE b.book_id = $1;`
+        INNER JOIN books_contributor books_con ON books_con.book_id = b.book_id
+        INNER JOIN contributor con ON con.contributor_id = books_con.contributor_id
+        INNER JOIN contribution_role role ON role.contribution_role_id = books_con.contribution_role_id
+        WHERE b.book_id = $1`
 
         const values = [book_id];
         const response = (await getConnection()).query(text, values).catch(e => errorHandle(e));

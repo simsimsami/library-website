@@ -72,6 +72,7 @@ High priority
 - - subject book (delete subjects from books)
 - - subject
 - - books
+- - Book contributors [x]
 - put request (edit and etc)
 
 ## tasks

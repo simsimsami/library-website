@@ -5,7 +5,7 @@ import { setupSelect } from "../utility/setupSelect.js";
 import { elementCreator } from "../utility/elementCreator.js";
 import { getSubjectList } from "../subject/subject.js";
 import { errorHandle } from "../utility/errorhandle.js";
-import { getRoute, postRoute } from "../apiFrontSetup.js"
+import { deleteRoute, getRoute, postRoute } from "../apiFrontSetup.js"
 
 // function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
 
@@ -22,6 +22,9 @@ async function bookData(id) {
 export async function listBooksData() {
     try {
         const data = await bookData();
+
+        console.log("Get Books button has been clicked");
+        
         
         const currentDiv = document.querySelector('#records');
         currentDiv.innerHTML = "";
@@ -34,11 +37,17 @@ export async function listBooksData() {
             const book_release = grid(data[items].book_release_date);
             const isbn = grid(data[items].isbn);
             const pub = grid(data[items].publisher_name);
-            const viewButton = elementCreator("button", data[items].book_id, "View Contributors");
-            const subjectList = grid(data[items].subject_name)
-            viewButton.setAttribute("class", "view-button");
+            const subjectList = grid(data[items].subject_name);
+            
 
-            card.append(bookTitle, book_release, isbn, pub, subjectList, viewButton);
+            const viewBookContribs = elementCreator("button", data[items].book_id, "View Contributors");
+            const viewBookSubject = elementCreator("button", 1, "View Subject List");
+
+
+            viewBookContribs.setAttribute("class", "view-BookContrib-button");
+            viewBookSubject.setAttribute("class", "view-BookSubject-button");
+
+            card.append(bookTitle, book_release, isbn, pub, subjectList, viewBookSubject, viewBookContribs);
             currentDiv.appendChild(card);
         }
     } catch (error) {
@@ -50,16 +59,11 @@ export async function getBookContribs(event) {
     try {
         const currentDiv = document.querySelector("#records");
         currentDiv.innerHTML = "";
-
-        
         
         const bookId = event.id;
         console.log("Function getBookContribs called, bookid: ", bookId);
 
         const data = await bookData(bookId);
-
-        console.log(data);
-        
 
         for (const items in data) {
             const card = elementCreator("div", bookId, "");
@@ -70,12 +74,33 @@ export async function getBookContribs(event) {
             const contriLastName = grid(data[items].contributor_last_name);
             const roleTitle = grid(data[items].contribution_role_title);
 
-            card.append(contriTitle, contriFirstName, contriLastName, roleTitle);
+            const delButton = elementCreator("button", data[items].contributor_id, "Delete Book Contributor");
+            delButton.setAttribute("class", "bookContribDeleteButton");
+
+            card.append(contriTitle, contriFirstName, contriLastName, roleTitle, delButton);
 
             currentDiv.appendChild(card);
         }
     } catch (error) {
         errorHandle(error.message);
+    }
+}
+
+export async function deleteBookContributor(event) {
+    try {
+        const currentDiv = document.querySelector("#records");
+        currentDiv.innerHTML = "";
+
+        const contributorId = event.id;
+        console.log("Contributor ID: ", contributorId);
+
+        const request = await deleteRoute("bookContrib", contributorId);
+        if (!request) {
+            errorHandle(request);
+        }
+
+    } catch (error) {
+        errorHandle(error);
     }
 }
 
@@ -163,12 +188,12 @@ export async function postBookContrib() {
         };
 
         const request = await postRoute("bookContrib", postData);
-        if (!request.ok) {
+        if (!request) {
             errorHandle(request);
         }
 
     } catch (error) {
-        errorHandle(error.message);
+        errorHandle(error);
     }
 }
 
@@ -185,8 +210,9 @@ export async function listBookSubject() {
         subButton.setAttribute("type", "button");
 
         const bookList = await getBookList();
-        const subjectList = await getSubjectList();
 
+        const subjectList = await getSubjectList();
+        
         form.append(bookList, subjectList, subButton);
         currentDiv.appendChild(form);
     }
